@@ -1,0 +1,41 @@
+﻿@model DateNiteBackEndCapstone.Models.RestaurantResult
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Results</h1>
+
+<form asp-controller="Restaurants" asp-action="Index" class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="text" placeholder="Search Category" name="category">
+    <input class="form-control mr-sm-2" type="text" placeholder="Search City" name="city">
+    <input class="form-control mr-sm-2" type="text" placeholder="Search State" name="state">
+    <input class="form-control mr-sm-2" type="text" placeholder="Enter Budget" name="budget">
+    <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Results)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <img style="width:135px; height:135px;" src="@Html.DisplayFor(modelItem => item.Img)" />
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
