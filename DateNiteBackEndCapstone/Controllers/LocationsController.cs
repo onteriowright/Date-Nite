@@ -12,18 +12,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DateNiteBackEndCapstone.Controllers
 {
-    public class RestaurantsController : Controller
+    public class LocationsController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public RestaurantsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public LocationsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
-        // GET: Restaurants 
+        // GET: Locations
         public async Task<ActionResult> Index(string city, string state, int? budget)
         {
             var client = new HttpClient();
@@ -73,19 +73,19 @@ namespace DateNiteBackEndCapstone.Controllers
             return View();
         }
 
-        // GET: Restaurants/Details/5
+        // GET: Locations/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Restaurants/Create
+        // GET: Locations/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Restaurants/Create
+        // POST: Locations/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -102,13 +102,13 @@ namespace DateNiteBackEndCapstone.Controllers
             }
         }
 
-        // GET: Restaurants/Edit/5
+        // GET: Locations/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Restaurants/Edit/5
+        // POST: Locations/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -125,13 +125,13 @@ namespace DateNiteBackEndCapstone.Controllers
             }
         }
 
-        // GET: Restaurants/Delete/5
+        // GET: Locations/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Restaurants/Delete/5
+        // POST: Locations/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

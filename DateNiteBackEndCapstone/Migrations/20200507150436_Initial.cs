@@ -42,7 +42,9 @@ namespace DateNiteBackEndCapstone.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true)
+                    LastName = table.Column<string>(nullable: true),
+                    Budget = table.Column<int>(nullable: true),
+                    Date = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -213,6 +215,7 @@ namespace DateNiteBackEndCapstone.Migrations
                     Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Img = table.Column<string>(nullable: true),
+                    ApplicationUserId = table.Column<int>(nullable: false),
                     RestaurantResultId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

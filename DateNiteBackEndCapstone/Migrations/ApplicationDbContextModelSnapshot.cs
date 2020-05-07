@@ -57,6 +57,9 @@ namespace DateNiteBackEndCapstone.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("ApplicationUserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Img")
                         .HasColumnType("nvarchar(max)");
 
@@ -300,6 +303,12 @@ namespace DateNiteBackEndCapstone.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<int>("Budget")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -328,7 +337,7 @@ namespace DateNiteBackEndCapstone.Migrations
             modelBuilder.Entity("DateNiteBackEndCapstone.Models.RestaurantResult", b =>
                 {
                     b.HasOne("DateNiteBackEndCapstone.Models.ApplicationUser", null)
-                        .WithMany("Results")
+                        .WithMany("Dates")
                         .HasForeignKey("ApplicationUserId");
                 });
 

@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace DateNiteBackEndCapstone.Models
 {
-    public class Restaurant
+    public class Date
     {
         [JsonPropertyName("id")]
         public string Id { get; set; }
         [JsonPropertyName("name")]
-        public string Name { get; set; }
-        [JsonPropertyName("image_url")]
-        public string Img { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
         public int ApplicationUserId { get; set; }
+
     }
 }
