@@ -43,8 +43,7 @@ namespace DateNiteBackEndCapstone.Migrations
                     Discriminator = table.Column<string>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    Budget = table.Column<int>(nullable: true),
-                    Date = table.Column<DateTime>(nullable: true)
+                    DateCreated = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -52,7 +51,23 @@ namespace DateNiteBackEndCapstone.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EventResults",
+                name: "Dates",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    City = table.Column<string>(nullable: true),
+                    State = table.Column<string>(nullable: true),
+                    DateTime = table.Column<DateTime>(nullable: false),
+                    TimeOfDate = table.Column<DateTime>(nullable: false),
+                    ApplicationUserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dates", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DatesResults",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -60,7 +75,19 @@ namespace DateNiteBackEndCapstone.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EventResults", x => x.Id);
+                    table.PrimaryKey("PK_DatesResults", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Location",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Location", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,21 +216,32 @@ namespace DateNiteBackEndCapstone.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Events",
+                name: "Business",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
+                    LocationId = table.Column<int>(nullable: true),
+                    Price = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
+                    Rating = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
                     Img = table.Column<string>(nullable: true),
-                    EventResultId = table.Column<int>(nullable: true)
+                    ApplicationUserId = table.Column<string>(nullable: true),
+                    DateResultsId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Events", x => x.Id);
+                    table.PrimaryKey("PK_Business", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Events_EventResults_EventResultId",
-                        column: x => x.EventResultId,
-                        principalTable: "EventResults",
+                        name: "FK_Business_DatesResults_DateResultsId",
+                        column: x => x.DateResultsId,
+                        principalTable: "DatesResults",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Business_Location_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Location",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -215,7 +253,7 @@ namespace DateNiteBackEndCapstone.Migrations
                     Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Img = table.Column<string>(nullable: true),
-                    ApplicationUserId = table.Column<int>(nullable: false),
+                    ApplicationUserId = table.Column<string>(nullable: true),
                     RestaurantResultId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -269,9 +307,14 @@ namespace DateNiteBackEndCapstone.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Events_EventResultId",
-                table: "Events",
-                column: "EventResultId");
+                name: "IX_Business_DateResultsId",
+                table: "Business",
+                column: "DateResultsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Business_LocationId",
+                table: "Business",
+                column: "LocationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RestaurantResults_ApplicationUserId",
@@ -302,7 +345,10 @@ namespace DateNiteBackEndCapstone.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Events");
+                name: "Business");
+
+            migrationBuilder.DropTable(
+                name: "Dates");
 
             migrationBuilder.DropTable(
                 name: "Restaurants");
@@ -311,7 +357,10 @@ namespace DateNiteBackEndCapstone.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "EventResults");
+                name: "DatesResults");
+
+            migrationBuilder.DropTable(
+                name: "Location");
 
             migrationBuilder.DropTable(
                 name: "RestaurantResults");

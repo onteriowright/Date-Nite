@@ -17,8 +17,7 @@ namespace DateNiteBackEndCapstone.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        public int Budget { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime DateCreated { get; set; }
         public List<RestaurantResult> Dates { get; set; }
     }
 }

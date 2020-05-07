@@ -19,8 +19,7 @@
             <th>
                 Restaurant
             </th>
-            <th>Address</th>
-            <th>Phone</th>
+            <th>Rated</th>
         </tr>
     </thead>
     <tbody>
@@ -28,7 +27,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.ActionLink(item.Name, "Details", "Restaurants", new { id = item.Id })
                 </td>
                 <td>
                     <img style="width:135px; height:135px;" src="@Html.DisplayFor(modelItem => item.Img)" />
@@ -66,26 +65,10 @@
                 }
                 else
                 {
-                    <td>This Restaurant Does Not Have A Rating A This Time!</td>
-                }
-
-                @*<td>
-                        @foreach (var address in item.Location.DisplayAddress)
-                        {
-                            <p>
-                                @address
-                            </p>
-                        }
-                    </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Phone)
-                    </td>*@
-
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
+                        This Restaurant Does Not Have A Rating A This Time!
+                    </td>
+                }
             </tr>
         }
     </tbody>

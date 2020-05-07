@@ -74,8 +74,25 @@ namespace DateNiteBackEndCapstone.Controllers
         }
 
         // GET: Locations/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
+            var client = new HttpClient();
+
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "TeC1Z2BEPysYnC8Ku-w84jo1OG6TSLfLZNol9-2Yj1gEPfpUq76adogQWhyDqbDt3a5Ld_seJQyj5HYK5oIa7WKcloeeZrdWbnwZNJPcea-aLgb4d0K_sZPPvCJUXnYx");
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Add("User-Agent", "DateNiteYelpClient");
+
+            var response = await client.GetAsync($"https://api.yelp.com/v3/businesses/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                using var responseStream = await response.Content.ReadAsStreamAsync();
+                var data = await JsonSerializer.DeserializeAsync<Business>(responseStream);
+
+                return View(data);
+                throw new Exception("Unable to retrieve data from Yelp");
+            }
+
             return View();
         }
 

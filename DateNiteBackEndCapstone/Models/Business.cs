@@ -28,6 +28,7 @@ namespace DateNiteBackEndCapstone.Models
 
         [JsonPropertyName("image_url")]
         public string Img { get; set; }
+        public string ApplicationUserId { get; set; }
 
     }
 }

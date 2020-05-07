@@ -13,7 +13,10 @@ namespace DateNiteBackEndCapstone.Models
         [JsonPropertyName("name")]
         public string City { get; set; }
         public string State { get; set; }
-        public int ApplicationUserId { get; set; }
+        public DateTime DateTime { get; set; }
+        public DateTime TimeOfDate { get; set; }
+        public string ApplicationUserId { get; set; }
+
 
     }
 }

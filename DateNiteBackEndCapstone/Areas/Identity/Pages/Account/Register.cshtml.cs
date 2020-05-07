@@ -86,7 +86,8 @@ namespace DateNiteBackEndCapstone.Areas.Identity.Pages.Account
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     UserName = Input.Email,
-                    Email = Input.Email
+                    Email = Input.Email,
+                    DateCreated = DateTime.Now
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

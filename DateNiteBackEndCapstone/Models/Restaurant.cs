@@ -14,6 +14,6 @@ namespace DateNiteBackEndCapstone.Models
         public string Name { get; set; }
         [JsonPropertyName("image_url")]
         public string Img { get; set; }
-        public int ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
     }
 }
