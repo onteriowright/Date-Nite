@@ -43,7 +43,7 @@ namespace DateNiteBackEndCapstone.Migrations
                     Discriminator = table.Column<string>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    DateCreated = table.Column<DateTime>(nullable: true)
+                    Date = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
