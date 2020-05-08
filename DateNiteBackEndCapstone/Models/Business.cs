@@ -16,6 +16,7 @@ namespace DateNiteBackEndCapstone.Models
 
         [JsonPropertyName("location")]
         public Location Location { get; set; }
+        public int LocationId { get; set; }
 
         [JsonPropertyName("price")]
         public string Price { get; set; }
@@ -28,7 +29,7 @@ namespace DateNiteBackEndCapstone.Models
 
         [JsonPropertyName("image_url")]
         public string Img { get; set; }
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
     }
 }

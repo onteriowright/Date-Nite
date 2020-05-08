@@ -10,6 +10,7 @@ using DateNiteBackEndCapstone.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DateNiteBackEndCapstone.Controllers
 {
@@ -123,37 +124,58 @@ namespace DateNiteBackEndCapstone.Controllers
         //POST: Products/AddToDate
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddToDate(int businessId)
+        public async Task<ActionResult> AddToDate(int id, Business business, ApplicationUser userId)
         {
-            var user = await GetUserAsync();
-
+            var user = GetUserAsync();
             var client = new HttpClient();
 
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "TeC1Z2BEPysYnC8Ku-w84jo1OG6TSLfLZNol9-2Yj1gEPfpUq76adogQWhyDqbDt3a5Ld_seJQyj5HYK5oIa7WKcloeeZrdWbnwZNJPcea-aLgb4d0K_sZPPvCJUXnYx");
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Add("User-Agent", "DateNiteYelpClient");
 
-            var response = await client.GetAsync($"https://api.yelp.com/v3/businesses/{businessId}");
+            var response = await client.GetAsync($"https://api.yelp.com/v3/businesses/{business.Id}");
 
             if (response.IsSuccessStatusCode)
             {
-                using var responseStream = await response.Content.ReadAsStreamAsync();
+                var responseStream = await response.Content.ReadAsStreamAsync();
                 var data = await JsonSerializer.DeserializeAsync<Business>(responseStream);
+
+                //var userId = await _context.ApplicationUsers
+                //    .FirstOrDefaultAsync(u => u.Id == user.Id.ToString());
+
+
+                var restaurant = new Business()
+                {
+                    Id = data.Id,
+                    Name = data.Name,
+                    Img = data.Img,
+                    Phone = data.Phone,
+                    Price = data.Price,
+                    Location = data.Location,
+                    Rating = data.Rating,
+                    UserId = userId.Id
+                };
+
+
+                _context.Businesses.Add(restaurant);
+
+                await _context.SaveChangesAsync();
+
 
                 return View(data);
                 throw new Exception("Unable to retrieve data from Yelp");
             }
 
 
-            //var date = new DateResults()
+            //var restaurant = new Business()
             //{
-            // Businesses =    
+            //    Id = dat
             //};
 
- 
-            //_context.Product.Update(prod);
 
-            await _context.SaveChangesAsync();
+            //_context.DatesResults.Update(date);
+
+            //await _context.SaveChangesAsync();
 
             return RedirectToAction("Index", "Home");
         }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DateNiteBackEndCapstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200507215009_Initial")]
+    [Migration("20200508040233_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,16 +26,13 @@ namespace DateNiteBackEndCapstone.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("DateResultsId")
                         .HasColumnType("int");
 
                     b.Property<string>("Img")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LocationId")
+                    b.Property<int>("LocationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -50,22 +47,22 @@ namespace DateNiteBackEndCapstone.Migrations
                     b.Property<decimal>("Rating")
                         .HasColumnType("decimal(18,4)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DateResultsId");
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("Business");
+                    b.ToTable("Businesses");
                 });
 
             modelBuilder.Entity("DateNiteBackEndCapstone.Models.Date", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -78,6 +75,9 @@ namespace DateNiteBackEndCapstone.Migrations
 
                     b.Property<DateTime>("TimeOfDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -106,47 +106,6 @@ namespace DateNiteBackEndCapstone.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Location");
-                });
-
-            modelBuilder.Entity("DateNiteBackEndCapstone.Models.Restaurant", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Img")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("RestaurantResultId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RestaurantResultId");
-
-                    b.ToTable("Restaurants");
-                });
-
-            modelBuilder.Entity("DateNiteBackEndCapstone.Models.RestaurantResult", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("RestaurantResults");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -381,21 +340,9 @@ namespace DateNiteBackEndCapstone.Migrations
 
                     b.HasOne("DateNiteBackEndCapstone.Models.Location", "Location")
                         .WithMany()
-                        .HasForeignKey("LocationId");
-                });
-
-            modelBuilder.Entity("DateNiteBackEndCapstone.Models.Restaurant", b =>
-                {
-                    b.HasOne("DateNiteBackEndCapstone.Models.RestaurantResult", null)
-                        .WithMany("Results")
-                        .HasForeignKey("RestaurantResultId");
-                });
-
-            modelBuilder.Entity("DateNiteBackEndCapstone.Models.RestaurantResult", b =>
-                {
-                    b.HasOne("DateNiteBackEndCapstone.Models.ApplicationUser", null)
-                        .WithMany("Dates")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

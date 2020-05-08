@@ -59,7 +59,7 @@ namespace DateNiteBackEndCapstone.Migrations
                     State = table.Column<string>(nullable: true),
                     DateTime = table.Column<DateTime>(nullable: false),
                     TimeOfDate = table.Column<DateTime>(nullable: false),
-                    ApplicationUserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -197,74 +197,34 @@ namespace DateNiteBackEndCapstone.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RestaurantResults",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ApplicationUserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RestaurantResults", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RestaurantResults_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Business",
+                name: "Businesses",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    LocationId = table.Column<int>(nullable: true),
+                    LocationId = table.Column<int>(nullable: false),
                     Price = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: true),
                     Rating = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
                     Img = table.Column<string>(nullable: true),
-                    ApplicationUserId = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true),
                     DateResultsId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Business", x => x.Id);
+                    table.PrimaryKey("PK_Businesses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Business_DatesResults_DateResultsId",
+                        name: "FK_Businesses_DatesResults_DateResultsId",
                         column: x => x.DateResultsId,
                         principalTable: "DatesResults",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Business_Location_LocationId",
+                        name: "FK_Businesses_Location_LocationId",
                         column: x => x.LocationId,
                         principalTable: "Location",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Restaurants",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Img = table.Column<string>(nullable: true),
-                    ApplicationUserId = table.Column<string>(nullable: true),
-                    RestaurantResultId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Restaurants", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Restaurants_RestaurantResults_RestaurantResultId",
-                        column: x => x.RestaurantResultId,
-                        principalTable: "RestaurantResults",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -307,24 +267,14 @@ namespace DateNiteBackEndCapstone.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Business_DateResultsId",
-                table: "Business",
+                name: "IX_Businesses_DateResultsId",
+                table: "Businesses",
                 column: "DateResultsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Business_LocationId",
-                table: "Business",
+                name: "IX_Businesses_LocationId",
+                table: "Businesses",
                 column: "LocationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RestaurantResults_ApplicationUserId",
-                table: "RestaurantResults",
-                column: "ApplicationUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Restaurants_RestaurantResultId",
-                table: "Restaurants",
-                column: "RestaurantResultId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -345,28 +295,22 @@ namespace DateNiteBackEndCapstone.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Business");
+                name: "Businesses");
 
             migrationBuilder.DropTable(
                 name: "Dates");
 
             migrationBuilder.DropTable(
-                name: "Restaurants");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "DatesResults");
 
             migrationBuilder.DropTable(
                 name: "Location");
-
-            migrationBuilder.DropTable(
-                name: "RestaurantResults");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
         }
     }
 }

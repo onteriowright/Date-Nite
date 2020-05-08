@@ -15,7 +15,7 @@ namespace DateNiteBackEndCapstone.Models
         public string State { get; set; }
         public DateTime DateTime { get; set; }
         public DateTime TimeOfDate { get; set; }
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
 
     }
