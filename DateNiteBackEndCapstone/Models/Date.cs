@@ -12,7 +12,7 @@ namespace DateNiteBackEndCapstone.Models
     {
         [Key]
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        public int Id { get; set; }
         [JsonPropertyName("name")]
         public DateTime DateTime { get; set; }
         public Business Business { get; set; }

@@ -29,12 +29,12 @@ namespace DateNiteBackEndCapstone.Data
                 new LocationType()
                 {
                     Id = 1,
-                    Type = "food"
+                    Type = "Food"
                 },
                 new LocationType()
                 {
                     Id = 2,
-                    Type = "fun"
+                    Type = "Fun"
                 }
             );
         }

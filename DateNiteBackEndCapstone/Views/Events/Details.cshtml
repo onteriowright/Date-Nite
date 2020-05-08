@@ -16,7 +16,7 @@
                 <img style="width:200px; height:200px;" src="@Html.DisplayFor(model => model.Business.Img)" />
             </p>
             <label asp-for="Business.LocationTypeId" class="control-label">Is This Food Or Fun?</label>
-            <select asp-for="Business.LocationTypeId" class="form-control" style="max-width: 18%; margin-bottom: 18px;" asp-items="@Model.LocationTypesOptions">
+            <select asp-for="Business.LocationTypeId" class="form-control" style="max-width: 15%; margin-bottom: 15px;" asp-items="@Model.LocationTypesOptions">
             </select>
 
             @if (Model.Business.Rating.ToString() == "1.0" || Model.Business.Rating.ToString() == "1.1" || Model.Business.Rating.ToString() == "1.2" || Model.Business.Rating.ToString() == "1.3" || Model.Business.Rating.ToString() == "1.4" || Model.Business.Rating.ToString() == "1.5" || Model.Business.Rating.ToString() == "1.6" || Model.Business.Rating.ToString() == "1.7" || Model.Business.Rating.ToString() == "1.8" || Model.Business.Rating.ToString() == "1.9")
@@ -52,7 +52,7 @@
             else
             {
                 <p>
-                    This Restaurant Does Not Have A Rating A This Time!
+                    This Establishment Does Not Have A Rating A This Time!
                 </p>
             }
 

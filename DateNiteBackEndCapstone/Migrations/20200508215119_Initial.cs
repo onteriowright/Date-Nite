@@ -80,7 +80,7 @@ namespace DateNiteBackEndCapstone.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(nullable: true)
+                    Type = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -229,7 +229,8 @@ namespace DateNiteBackEndCapstone.Migrations
                 name: "Dates",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DateTime = table.Column<DateTime>(nullable: false),
                     BusinessId = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true)
@@ -248,12 +249,12 @@ namespace DateNiteBackEndCapstone.Migrations
             migrationBuilder.InsertData(
                 table: "LocationTypes",
                 columns: new[] { "Id", "Type" },
-                values: new object[] { 1, "food" });
+                values: new object[] { 1, "Food" });
 
             migrationBuilder.InsertData(
                 table: "LocationTypes",
                 columns: new[] { "Id", "Type" },
-                values: new object[] { 2, "fun" });
+                values: new object[] { 2, "Fun" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

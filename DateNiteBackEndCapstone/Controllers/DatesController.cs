@@ -2,16 +2,44 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DateNiteBackEndCapstone.Data;
+using DateNiteBackEndCapstone.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DateNiteBackEndCapstone.Controllers
 {
     public class DatesController : Controller
     {
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public DatesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            _context = context;
+            _userManager = userManager;
+        }
         // GET: Dates
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public async Task<ActionResult> AddToDate()
+        {
+            var user = await GetUserAsync();
+            //var date = await _context.Dates.FirstOrDefaultAsync(d => d.)
+
+            //var date = new Date()
+            //{
+            //    Business = restaurant,
+            //    DateTime = DateTime.Now,
+            //    UserId = user.Id
+            //};
+
+
             return View();
         }
 
@@ -89,5 +117,7 @@ namespace DateNiteBackEndCapstone.Controllers
                 return View();
             }
         }
+
+        private async Task<ApplicationUser> GetUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DateNiteBackEndCapstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200508164808_Initial")]
+    [Migration("20200508215119_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,8 +64,10 @@ namespace DateNiteBackEndCapstone.Migrations
 
             modelBuilder.Entity("DateNiteBackEndCapstone.Models.Date", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("BusinessId")
                         .HasColumnType("nvarchar(450)");
@@ -115,6 +117,7 @@ namespace DateNiteBackEndCapstone.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Type")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -125,12 +128,12 @@ namespace DateNiteBackEndCapstone.Migrations
                         new
                         {
                             Id = 1,
-                            Type = "food"
+                            Type = "Food"
                         },
                         new
                         {
                             Id = 2,
-                            Type = "fun"
+                            Type = "Fun"
                         });
                 });
 

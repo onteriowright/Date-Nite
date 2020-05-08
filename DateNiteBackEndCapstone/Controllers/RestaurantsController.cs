@@ -154,7 +154,7 @@ namespace DateNiteBackEndCapstone.Controllers
                 var responseStream = await response.Content.ReadAsStreamAsync();
                 var data = await JsonSerializer.DeserializeAsync<Business>(responseStream);
 
-                var restaurant = new Business()
+                var newRestaurant = new Business()
                 {
                     Id = data.Id,
                     Name = data.Name,
@@ -167,12 +167,12 @@ namespace DateNiteBackEndCapstone.Controllers
                     UserId = user.Id
                 };
 
-
-                _context.Businesses.Add(restaurant);
+                _context.Businesses.Add(newRestaurant);
 
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Events");
+
                 throw new Exception("Unable to retrieve data from Yelp");
             }
 
