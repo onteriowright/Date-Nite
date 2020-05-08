@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -8,6 +10,7 @@ namespace DateNiteBackEndCapstone.Models
 {
     public class Business
     {
+        [Key]
         [JsonPropertyName("id")]
         public string Id { get; set; }
 
@@ -15,8 +18,8 @@ namespace DateNiteBackEndCapstone.Models
         public string Name { get; set; }
 
         [JsonPropertyName("location")]
-        public Location Location { get; set; }
-        public int LocationId { get; set; }
+        public LocationAddress LocationAddress { get; set; }
+        public int LocationTypeId { get; set; }
 
         [JsonPropertyName("price")]
         public string Price { get; set; }

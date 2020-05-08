@@ -14,6 +14,7 @@ namespace DateNiteBackEndCapstone.Data
         public DbSet<Business> Businesses { get; set; }
         public DbSet<Date> Dates { get; set; }
         public DbSet<DateResults> DatesResults { get; set; }
+        public DbSet<LocationType> LocationTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +23,20 @@ namespace DateNiteBackEndCapstone.Data
             modelBuilder.Entity<Business>()
                 .Property(r => r.Rating)
                 .HasColumnType("decimal(18,4)");
+
+
+            modelBuilder.Entity<LocationType>().HasData(
+                new LocationType()
+                {
+                    Id = 1,
+                    Type = "food"
+                },
+                new LocationType()
+                {
+                    Id = 2,
+                    Type = "fun"
+                }
+            );
         }
     }
 }
