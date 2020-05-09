@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DateNiteBackEndCapstone.Data;
 using DateNiteBackEndCapstone.Models;
@@ -92,7 +93,7 @@ namespace DateNiteBackEndCapstone.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                using var responseStream = await response.Content.ReadAsStreamAsync();
+                var responseStream = await response.Content.ReadAsStreamAsync();
                 var data = await JsonSerializer.DeserializeAsync<Business>(responseStream);
 
                 viewModel.Business = data;
@@ -138,7 +139,7 @@ namespace DateNiteBackEndCapstone.Controllers
         //POST: Restaurant/AddToDate
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddToDate(int id, BusinessDetailsViewModel businessDetailViewModel)
+        public async Task<ActionResult> AddToDate(int id, BusinessDetailsViewModel businessDetailViewModel, Date date)
         {
             var user = await GetUserAsync();
             var client = new HttpClient();
@@ -167,6 +168,10 @@ namespace DateNiteBackEndCapstone.Controllers
                     UserId = user.Id
                 };
 
+                //Match this with same date Id as restaurant
+                var dateId = await _context.Dates.FirstOrDefaultAsync(d => d.UserId == user.Id);
+
+                newEvent.DateId = dateId.Id;
 
                 _context.Businesses.Add(newEvent);
 

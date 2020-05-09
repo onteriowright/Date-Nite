@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DateNiteBackEndCapstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200508215119_Initial")]
+    [Migration("20200509193547_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,9 @@ namespace DateNiteBackEndCapstone.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("DateId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("DateResultsId")
                         .HasColumnType("int");
@@ -69,9 +72,6 @@ namespace DateNiteBackEndCapstone.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("BusinessId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
@@ -79,8 +79,6 @@ namespace DateNiteBackEndCapstone.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BusinessId");
 
                     b.ToTable("Dates");
                 });
@@ -370,13 +368,6 @@ namespace DateNiteBackEndCapstone.Migrations
                     b.HasOne("DateNiteBackEndCapstone.Models.LocationAddress", "LocationAddress")
                         .WithMany()
                         .HasForeignKey("LocationAddressId");
-                });
-
-            modelBuilder.Entity("DateNiteBackEndCapstone.Models.Date", b =>
-                {
-                    b.HasOne("DateNiteBackEndCapstone.Models.Business", "Business")
-                        .WithMany()
-                        .HasForeignKey("BusinessId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

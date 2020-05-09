@@ -167,6 +167,19 @@ namespace DateNiteBackEndCapstone.Controllers
                     UserId = user.Id
                 };
 
+                var newDate = new Date()
+                {
+                    DateTime = DateTime.Now,
+                    UserId = user.Id
+                };
+
+                _context.Dates.Add(newDate);
+                await _context.SaveChangesAsync();
+
+                var dateId = await _context.Dates.FirstOrDefaultAsync(d => d.UserId == user.Id && d.Id == newDate.Id);
+
+                newRestaurant.DateId = dateId.Id;
+
                 _context.Businesses.Add(newRestaurant);
 
                 await _context.SaveChangesAsync();
