@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DateNiteBackEndCapstone.Models.ViewModels
+namespace DateNiteBackEndCapstone.Models.BusinessViewModals
 {
     public class BusinessDetailsViewModel
     {

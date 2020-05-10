@@ -51,54 +51,28 @@ namespace DateNiteBackEndCapstone.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Dates",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DateTime = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Dates", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DatesResults",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DatesResults", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "LocationAddress",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    LocationAddressId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LocationAddress", x => x.Id);
+                    table.PrimaryKey("PK_LocationAddress", x => x.LocationAddressId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "LocationTypes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    LocationTypeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Type = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LocationTypes", x => x.Id);
+                    table.PrimaryKey("PK_LocationTypes", x => x.LocationTypeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -208,6 +182,26 @@ namespace DateNiteBackEndCapstone.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Dates",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DateTime = table.Column<DateTime>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dates", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Dates_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Businesses",
                 columns: table => new
                 {
@@ -221,33 +215,81 @@ namespace DateNiteBackEndCapstone.Migrations
                     Img = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
                     DateId = table.Column<int>(nullable: false),
-                    DateResultsId = table.Column<int>(nullable: true)
+                    ApplicatonUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Businesses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Businesses_DatesResults_DateResultsId",
-                        column: x => x.DateResultsId,
-                        principalTable: "DatesResults",
+                        name: "FK_Businesses_AspNetUsers_ApplicatonUserId",
+                        column: x => x.ApplicatonUserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Businesses_LocationAddress_LocationAddressId",
                         column: x => x.LocationAddressId,
                         principalTable: "LocationAddress",
+                        principalColumn: "LocationAddressId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DateBusiness",
+                columns: table => new
+                {
+                    DateBusinessId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DateId = table.Column<int>(nullable: false),
+                    BusinessId = table.Column<int>(nullable: false),
+                    BusinessId1 = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DateBusiness", x => x.DateBusinessId);
+                    table.ForeignKey(
+                        name: "FK_DateBusiness_Businesses_BusinessId1",
+                        column: x => x.BusinessId1,
+                        principalTable: "Businesses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DateBusiness_Dates_DateId",
+                        column: x => x.DateId,
+                        principalTable: "Dates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserBusinesses",
+                columns: table => new
+                {
+                    UserBusinessId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(nullable: true),
+                    BusinessId = table.Column<int>(nullable: false),
+                    BusinessId1 = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserBusinesses", x => x.UserBusinessId);
+                    table.ForeignKey(
+                        name: "FK_UserBusinesses_Businesses_BusinessId1",
+                        column: x => x.BusinessId1,
+                        principalTable: "Businesses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
                 table: "LocationTypes",
-                columns: new[] { "Id", "Type" },
+                columns: new[] { "LocationTypeId", "Type" },
                 values: new object[] { 1, "Food" });
 
             migrationBuilder.InsertData(
                 table: "LocationTypes",
-                columns: new[] { "Id", "Type" },
+                columns: new[] { "LocationTypeId", "Type" },
                 values: new object[] { 2, "Fun" });
 
             migrationBuilder.CreateIndex(
@@ -290,14 +332,34 @@ namespace DateNiteBackEndCapstone.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Businesses_DateResultsId",
+                name: "IX_Businesses_ApplicatonUserId",
                 table: "Businesses",
-                column: "DateResultsId");
+                column: "ApplicatonUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Businesses_LocationAddressId",
                 table: "Businesses",
                 column: "LocationAddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DateBusiness_BusinessId1",
+                table: "DateBusiness",
+                column: "BusinessId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DateBusiness_DateId",
+                table: "DateBusiness",
+                column: "DateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Dates_UserId",
+                table: "Dates",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserBusinesses_BusinessId1",
+                table: "UserBusinesses",
+                column: "BusinessId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -318,22 +380,25 @@ namespace DateNiteBackEndCapstone.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Businesses");
-
-            migrationBuilder.DropTable(
-                name: "Dates");
+                name: "DateBusiness");
 
             migrationBuilder.DropTable(
                 name: "LocationTypes");
 
             migrationBuilder.DropTable(
+                name: "UserBusinesses");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Dates");
 
             migrationBuilder.DropTable(
-                name: "DatesResults");
+                name: "Businesses");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "LocationAddress");

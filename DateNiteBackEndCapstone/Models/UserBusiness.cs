@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace DateNiteBackEndCapstone.Models
 {
-    public class DateResults
+    public class UserBusiness
     {
         [Key]
-        public int DateResultsId { get; set; }
+        public int UserBusinessId { get; set; }
+        public string UserId { get; set; }
+        public int BusinessId { get; set; }
+        public Business Business { get; set; }
 
-        [JsonPropertyName("businesses")]
-        public List<Business> Businesses { get; set; }
     }
 }

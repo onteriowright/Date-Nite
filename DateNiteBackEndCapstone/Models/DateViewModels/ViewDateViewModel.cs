@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DateNiteBackEndCapstone.Models.ViewModels
+namespace DateNiteBackEndCapstone.Models.DateViewModels
 {
-    public class CompleteDateViewModel
+    public class ViewDateViewModel
     {
         public Date Date { get; set; }
     }

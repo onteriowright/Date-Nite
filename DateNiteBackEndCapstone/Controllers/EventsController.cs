@@ -7,7 +7,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DateNiteBackEndCapstone.Data;
 using DateNiteBackEndCapstone.Models;
-using DateNiteBackEndCapstone.Models.ViewModels;
+using DateNiteBackEndCapstone.Models.BusinessViewModals;
+using DateNiteBackEndCapstone.Models.DateViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -101,7 +102,7 @@ namespace DateNiteBackEndCapstone.Controllers
                 var locationTypesOptions = await _context.LocationTypes.Select(pt => new SelectListItem()
                 {
                     Text = pt.Type,
-                    Value = pt.Id.ToString()
+                    Value = pt.LocationTypeId.ToString()
                 }).ToListAsync();
 
                 viewModel.LocationTypesOptions = locationTypesOptions;
@@ -139,7 +140,7 @@ namespace DateNiteBackEndCapstone.Controllers
         //POST: Restaurant/AddToDate
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddToDate(int id, BusinessDetailsViewModel businessDetailViewModel, Date date)
+        public async Task<ActionResult> AddToDate(int id, BusinessDetailsViewModel businessDetailViewModel)
         {
             var user = await GetUserAsync();
             var client = new HttpClient();
@@ -169,9 +170,9 @@ namespace DateNiteBackEndCapstone.Controllers
                 };
 
                 //Match this with same date Id as restaurant
-                var dateId = await _context.Dates.FirstOrDefaultAsync(d => d.UserId == user.Id);
+                var date = await _context.Dates.FirstOrDefaultAsync(d => d.UserId == user.Id);
 
-                newEvent.DateId = dateId.Id;
+                newEvent.DateId = date.Id;
 
                 _context.Businesses.Add(newEvent);
 

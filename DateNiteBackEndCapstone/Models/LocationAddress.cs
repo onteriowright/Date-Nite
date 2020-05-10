@@ -11,7 +11,7 @@ namespace DateNiteBackEndCapstone.Models
     public class LocationAddress
     {
         [Key]
-        public int Id { get; set; }
+        public int LocationAddressId { get; set; }
         [NotMapped]
         [JsonPropertyName("display_address")]
         public List<string> DisplayAddress { get; set; }

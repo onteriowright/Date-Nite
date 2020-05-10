@@ -10,7 +10,7 @@ namespace DateNiteBackEndCapstone.Models
     {
         [Key]
         [Required]
-        public int Id { get; set; }
+        public int LocationTypeId { get; set; }
         [Required]
         public string Type { get; set; }
     }

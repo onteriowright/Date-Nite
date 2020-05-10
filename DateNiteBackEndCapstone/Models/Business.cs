@@ -34,6 +34,8 @@ namespace DateNiteBackEndCapstone.Models
         public string Img { get; set; }
         public string UserId { get; set; }
         public int DateId { get; set; }
+        public ApplicationUser ApplicatonUser { get; set; }
+        public virtual ICollection<DateBusiness> DateBusinesses { get; set; }
 
     }
 }

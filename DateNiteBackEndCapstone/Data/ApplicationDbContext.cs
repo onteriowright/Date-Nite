@@ -13,8 +13,9 @@ namespace DateNiteBackEndCapstone.Data
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Business> Businesses { get; set; }
         public DbSet<Date> Dates { get; set; }
-        public DbSet<DateResults> DatesResults { get; set; }
         public DbSet<LocationType> LocationTypes { get; set; }
+        public DbSet<DateBusiness> DateBusiness { get; set; }
+        public DbSet<UserBusiness> UserBusinesses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,12 +29,12 @@ namespace DateNiteBackEndCapstone.Data
             modelBuilder.Entity<LocationType>().HasData(
                 new LocationType()
                 {
-                    Id = 1,
+                    LocationTypeId = 1,
                     Type = "Food"
                 },
                 new LocationType()
                 {
-                    Id = 2,
+                    LocationTypeId = 2,
                     Type = "Fun"
                 }
             );

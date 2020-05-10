@@ -13,8 +13,10 @@ namespace DateNiteBackEndCapstone.Models
         [Key]
         [JsonPropertyName("id")]
         public int Id { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime? DateTime { get; set; }
+        public ApplicationUser User { get; set; }
         public string UserId { get; set; }
+        public virtual ICollection<DateBusiness> DateBusinesses { get; set; }
 
     }
 }

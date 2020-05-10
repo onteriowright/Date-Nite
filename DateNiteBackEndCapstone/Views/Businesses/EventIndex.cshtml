@@ -1,12 +1,12 @@
 ﻿@model DateNiteBackEndCapstone.Models.BusinessViewModals.BusinessListViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "EventIndex";
 }
 
 <h1>Choose Eatery</h1>
 
-<form asp-controller="Businesses" asp-action="Index" class="form-inline my-2 my-lg-0">
+<form asp-controller="Businesses" asp-action="EventIndex" class="form-inline my-2 my-lg-0">
     <input class="form-control mr-sm-2" type="text" placeholder="Search City" name="city">
     <input class="form-control mr-sm-2" type="text" placeholder="Search State" name="state">
     <input class="form-control mr-sm-2" type="text" placeholder="Enter Budget" name="budget">
@@ -17,7 +17,7 @@
     <thead>
         <tr>
             <th>
-                Restaurant
+                Businesses
             </th>
             <th></th>
             <th>Rated</th>
@@ -28,7 +28,7 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink(item.Name, "Details", "Restaurants", new { id = item.Id })
+                    @Html.ActionLink(item.Name, "Details", "Businesses", new { id = item.Id })
                 </td>
                 <td>
                     <img style="width:135px; height:135px;" src="@Html.DisplayFor(modelItem => item.Img)" />
@@ -67,7 +67,7 @@
                 else
                 {
                     <td>
-                        This Restaurant Does Not Have A Rating A This Time!
+                        This Establishment Does Not Have A Rating A This Time!
                     </td>
                 }
             </tr>
