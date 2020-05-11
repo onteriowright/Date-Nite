@@ -28,7 +28,7 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink(item.Name, "Details", "Businesses", new { id = item.Id })
+                    @Html.ActionLink(item.Name, "Details", "Businesses", new { id = item.BusinessId })
                 </td>
                 <td>
                     <img style="width:135px; height:135px;" src="@Html.DisplayFor(modelItem => item.Img)" />
@@ -70,9 +70,6 @@
                         This Restaurant Does Not Have A Rating A This Time!
                     </td>
                 }
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-link" })
-                </td>
             </tr>
         }
     </tbody>

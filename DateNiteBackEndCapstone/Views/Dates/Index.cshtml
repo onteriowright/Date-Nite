@@ -1,0 +1,67 @@
+﻿@model DateNiteBackEndCapstone.Models.BusinessViewModals.BusinessListViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Finalize Date</h1>
+
+<div class="form-group">
+    <label asp-for="Date.DateTime" class="control-label"></label>
+    <input asp-for="Date.DateTime" type="date" class="form-control" />
+    <span asp-validation-for="Date.DateTime" class="text-danger"></span>
+</div>
+<div>
+    @Html.ActionLink("Add Eatery", "Index", "Businesses")
+</div>
+<div>
+    @Html.ActionLink("Add Event", "EventIndex", "Businesses")
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Businesses
+            </th>
+            <th></th>
+            <th>Rated</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Businesses)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <img style="width:135px; height:135px;" src="@Html.DisplayFor(modelItem => item.Img)" />
+                </td>
+
+                <td>
+                    @Html.ActionLink("Remove From Date", "Delete", "Businesses", new { id = item.Id }, new { @class = "btn btn-link" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.Businesses.Count > 1)
+{
+    <form asp-action="CompleteDate">
+        <div>
+            <input name="DateId" type="hidden" value="@Model.Date.Id" />
+            <input type="submit" value="Save Date" class="btn btn-primary" />
+        </div>
+    </form>
+}
+else
+{
+    <input value="Save Date" class="btn btn-secondary disabled" />
+}
+
+
+<div>
+    <a class="btn btn-link" asp-action="Index">Back to List</a>
+</div>

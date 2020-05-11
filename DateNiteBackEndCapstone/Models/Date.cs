@@ -16,7 +16,7 @@ namespace DateNiteBackEndCapstone.Models
         public DateTime? DateTime { get; set; }
         public ApplicationUser User { get; set; }
         public string UserId { get; set; }
-        public virtual ICollection<DateBusiness> DateBusinesses { get; set; }
+        public bool IsScheduled { get; set; }
 
     }
 }

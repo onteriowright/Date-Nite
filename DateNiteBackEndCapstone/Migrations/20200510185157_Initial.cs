@@ -188,7 +188,8 @@ namespace DateNiteBackEndCapstone.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DateTime = table.Column<DateTime>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: true),
+                    IsScheduled = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -205,7 +206,9 @@ namespace DateNiteBackEndCapstone.Migrations
                 name: "Businesses",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BusinessId = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     LocationAddressId = table.Column<int>(nullable: true),
                     LocationTypeId = table.Column<int>(nullable: false),
@@ -241,18 +244,17 @@ namespace DateNiteBackEndCapstone.Migrations
                     DateBusinessId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DateId = table.Column<int>(nullable: false),
-                    BusinessId = table.Column<int>(nullable: false),
-                    BusinessId1 = table.Column<string>(nullable: true)
+                    BusinessId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DateBusiness", x => x.DateBusinessId);
                     table.ForeignKey(
-                        name: "FK_DateBusiness_Businesses_BusinessId1",
-                        column: x => x.BusinessId1,
+                        name: "FK_DateBusiness_Businesses_BusinessId",
+                        column: x => x.BusinessId,
                         principalTable: "Businesses",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_DateBusiness_Dates_DateId",
                         column: x => x.DateId,
@@ -268,18 +270,17 @@ namespace DateNiteBackEndCapstone.Migrations
                     UserBusinessId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: true),
-                    BusinessId = table.Column<int>(nullable: false),
-                    BusinessId1 = table.Column<string>(nullable: true)
+                    BusinessId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserBusinesses", x => x.UserBusinessId);
                     table.ForeignKey(
-                        name: "FK_UserBusinesses_Businesses_BusinessId1",
-                        column: x => x.BusinessId1,
+                        name: "FK_UserBusinesses_Businesses_BusinessId",
+                        column: x => x.BusinessId,
                         principalTable: "Businesses",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -342,9 +343,9 @@ namespace DateNiteBackEndCapstone.Migrations
                 column: "LocationAddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DateBusiness_BusinessId1",
+                name: "IX_DateBusiness_BusinessId",
                 table: "DateBusiness",
-                column: "BusinessId1");
+                column: "BusinessId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DateBusiness_DateId",
@@ -357,9 +358,9 @@ namespace DateNiteBackEndCapstone.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserBusinesses_BusinessId1",
+                name: "IX_UserBusinesses_BusinessId",
                 table: "UserBusinesses",
-                column: "BusinessId1");
+                column: "BusinessId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

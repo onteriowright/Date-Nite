@@ -4,14 +4,16 @@ using DateNiteBackEndCapstone.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DateNiteBackEndCapstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200510185157_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,6 +93,28 @@ namespace DateNiteBackEndCapstone.Migrations
                     b.ToTable("Dates");
                 });
 
+            modelBuilder.Entity("DateNiteBackEndCapstone.Models.DateBusiness", b =>
+                {
+                    b.Property<int>("DateBusinessId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BusinessId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DateId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DateBusinessId");
+
+                    b.HasIndex("BusinessId");
+
+                    b.HasIndex("DateId");
+
+                    b.ToTable("DateBusiness");
+                });
+
             modelBuilder.Entity("DateNiteBackEndCapstone.Models.LocationAddress", b =>
                 {
                     b.Property<int>("LocationAddressId")
@@ -129,6 +153,26 @@ namespace DateNiteBackEndCapstone.Migrations
                             LocationTypeId = 2,
                             Type = "Fun"
                         });
+                });
+
+            modelBuilder.Entity("DateNiteBackEndCapstone.Models.UserBusiness", b =>
+                {
+                    b.Property<int>("UserBusinessId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BusinessId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserBusinessId");
+
+                    b.HasIndex("BusinessId");
+
+                    b.ToTable("UserBusinesses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -371,6 +415,30 @@ namespace DateNiteBackEndCapstone.Migrations
                     b.HasOne("DateNiteBackEndCapstone.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("DateNiteBackEndCapstone.Models.DateBusiness", b =>
+                {
+                    b.HasOne("DateNiteBackEndCapstone.Models.Business", "Business")
+                        .WithMany("DateBusinesses")
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DateNiteBackEndCapstone.Models.Date", "Date")
+                        .WithMany("DateBusinesses")
+                        .HasForeignKey("DateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DateNiteBackEndCapstone.Models.UserBusiness", b =>
+                {
+                    b.HasOne("DateNiteBackEndCapstone.Models.Business", "Business")
+                        .WithMany()
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DateNiteBackEndCapstone.Data;
 using DateNiteBackEndCapstone.Models;
+using DateNiteBackEndCapstone.Models.BusinessViewModals;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -22,25 +23,41 @@ namespace DateNiteBackEndCapstone.Controllers
             _userManager = userManager;
         }
         // GET: Dates
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var viewModel = new BusinessListViewModel();
+
+            var user = await GetUserAsync();
+            var date = await _context.Dates.FirstOrDefaultAsync(d => d.IsScheduled == false && d.UserId == user.Id);
+
+            var businesses = await _context.Businesses.Where(b => b.DateId == date.Id).ToListAsync();
+
+            viewModel.Date = date;
+            viewModel.Businesses = businesses;
+
+            return View(viewModel);
         }
 
-        public async Task<ActionResult> AddToDate()
+        public async Task<ActionResult> CompleteDate(int DateId)
         {
             var user = await GetUserAsync();
-            //var date = await _context.Dates.FirstOrDefaultAsync(d => d.)
 
-            //var date = new Date()
-            //{
-            //    Business = restaurant,
-            //    DateTime = DateTime.Now,
-            //    UserId = user.Id
-            //};
+            var date = await _context.Dates.FirstOrDefaultAsync(d => d.Id == DateId);
 
+            date.IsScheduled = true;
 
-            return View();
+            _context.Dates.Update(date);
+
+            var newDate = new Date()
+            {
+                UserId = user.Id
+            };
+
+            _context.Dates.Add(newDate);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Dates/Details/5
@@ -73,19 +90,29 @@ namespace DateNiteBackEndCapstone.Controllers
         }
 
         // GET: Dates/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var date = await _context.Dates.FirstOrDefaultAsync(d => d.Id == id);
+
+            return View(date);
         }
 
         // POST: Dates/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, BusinessListViewModel viewModel)
         {
             try
             {
-                // TODO: Add update logic here
+                var user = await GetUserAsync();
+
+                var date = await _context.Dates.FirstOrDefaultAsync(d => d.Id == id);
+
+                date.DateTime = viewModel.Date.DateTime;
+
+                _context.Dates.Update(date);
+                await _context.SaveChangesAsync();
+
 
                 return RedirectToAction(nameof(Index));
             }

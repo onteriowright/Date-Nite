@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using DateNiteBackEndCapstone.Data;
 using DateNiteBackEndCapstone.Models;
 using DateNiteBackEndCapstone.Models.BusinessViewModals;
-using DateNiteBackEndCapstone.Models.DateViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -131,7 +130,7 @@ namespace DateNiteBackEndCapstone.Controllers
 
 
         // GET: Businesses/Details/5
-        public async Task<ActionResult> Details(int id, Business business)
+        public async Task<ActionResult> Details(string id)
         {
             var viewModel = new BusinessDetailsViewModel();
 
@@ -141,11 +140,11 @@ namespace DateNiteBackEndCapstone.Controllers
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Add("User-Agent", "DateNiteYelpClient");
 
-            var response = await client.GetAsync($"https://api.yelp.com/v3/businesses/{business.Id}");
+            var response = await client.GetAsync($"https://api.yelp.com/v3/businesses/{id}");
 
             if (response.IsSuccessStatusCode)
             {
-                using var responseStream = await response.Content.ReadAsStreamAsync();
+                var responseStream = await response.Content.ReadAsStreamAsync();
                 var data = await JsonSerializer.DeserializeAsync<Business>(responseStream);
 
                 viewModel.Business = data;
@@ -159,84 +158,15 @@ namespace DateNiteBackEndCapstone.Controllers
                 viewModel.LocationTypesOptions = locationTypesOptions;
 
                 return View(viewModel);
-                throw new Exception("Unable to retrieve data from Yelp");
             }
 
-            return View();
-        }
-
-        // GET: Businesses/Create
-        public async Task<ActionResult> Create()
-        {
-            var viewModel = new BusinessFormViewModel();
-
-            var locationTypesOptions = await _context.LocationTypes.Select(pt => new SelectListItem()
-            {
-                Text = pt.Type,
-                Value = pt.LocationTypeId.ToString()
-            }).ToListAsync();
-
-            viewModel.LocationTypesOptions = locationTypesOptions;
-
-            return View(viewModel);
-        }
-
-        // POST: Restaurants/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(BusinessFormViewModel businessViewModel)
-        {
-            try
-            {
-                var user = await GetUserAsync();
-                var client = new HttpClient();
-
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "TeC1Z2BEPysYnC8Ku-w84jo1OG6TSLfLZNol9-2Yj1gEPfpUq76adogQWhyDqbDt3a5Ld_seJQyj5HYK5oIa7WKcloeeZrdWbnwZNJPcea-aLgb4d0K_sZPPvCJUXnYx");
-                client.DefaultRequestHeaders.Add("Accept", "application/json");
-                client.DefaultRequestHeaders.Add("User-Agent", "DateNiteYelpClient");
-
-                var response = await client.GetAsync($"https://api.yelp.com/v3/businesses/{businessViewModel.Id}");
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var responseStream = await response.Content.ReadAsStreamAsync();
-                    var data = await JsonSerializer.DeserializeAsync<Business>(responseStream);
-
-                    var newBusiness = new Business()
-                    {
-                        Id = data.Id,
-                        Name = data.Name,
-                        Img = data.Img,
-                        Phone = data.Phone,
-                        Price = data.Price,
-                        LocationAddress = data.LocationAddress,
-                        Rating = data.Rating,
-                        LocationTypeId = businessViewModel.LocationTypeId,
-                        UserId = user.Id
-                    };
-
-                    _context.Businesses.Add(newBusiness);
-                    await _context.SaveChangesAsync();
-
-                    var id = newBusiness.Id;
-
-                    return RedirectToAction("Details", new { id = id });
-
-                    throw new Exception("Unable to retrieve data from Yelp");
-                }
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            throw new Exception("Unable to retrieve data from Yelp");
         }
 
         //POST: Businesses/AddToDate
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddToDate(int id, BusinessDetailsViewModel businessDetailViewModel)
+        public async Task<ActionResult> AddToDate(string id, BusinessDetailsViewModel businessDetailViewModel)
         {
             var user = await GetUserAsync();
             var client = new HttpClient();
@@ -245,16 +175,18 @@ namespace DateNiteBackEndCapstone.Controllers
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Add("User-Agent", "DateNiteYelpClient");
 
-            var response = await client.GetAsync($"https://api.yelp.com/v3/businesses/{businessDetailViewModel.Business.Id}");
+            var response = await client.GetAsync($"https://api.yelp.com/v3/businesses/{businessDetailViewModel.Business.BusinessId}");
 
             if (response.IsSuccessStatusCode)
             {
                 var responseStream = await response.Content.ReadAsStreamAsync();
                 var data = await JsonSerializer.DeserializeAsync<Business>(responseStream);
 
-                var newRestaurant = new Business()
+                var date = await _context.Dates.FirstOrDefaultAsync(d => d.UserId == user.Id && d.IsScheduled == false);
+
+                var newBusiness = new Business()
                 {
-                    Id = data.Id,
+                    BusinessId = data.BusinessId,
                     Name = data.Name,
                     Img = data.Img,
                     Phone = data.Phone,
@@ -262,14 +194,15 @@ namespace DateNiteBackEndCapstone.Controllers
                     LocationAddress = data.LocationAddress,
                     Rating = data.Rating,
                     LocationTypeId = businessDetailViewModel.Business.LocationTypeId,
-                    UserId = user.Id
+                    UserId = user.Id,
+                    DateId = date.Id
                 };
 
-                _context.Businesses.Add(newRestaurant);
+                _context.Businesses.Add(newBusiness);
 
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("EventIndex");
+                return RedirectToAction("Index", "Dates");
 
                 throw new Exception("Unable to retrieve data from Yelp");
             }
@@ -301,9 +234,14 @@ namespace DateNiteBackEndCapstone.Controllers
         }
 
         // GET:Businesses/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            var business = await _context.Businesses.FirstOrDefaultAsync(b => b.Id == id);
+
+            _context.Businesses.Remove(business);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Dates");
         }
 
         // POST: Businesses/Delete/5

@@ -14,9 +14,6 @@ namespace DateNiteBackEndCapstone.Data
         public DbSet<Business> Businesses { get; set; }
         public DbSet<Date> Dates { get; set; }
         public DbSet<LocationType> LocationTypes { get; set; }
-        public DbSet<DateBusiness> DateBusiness { get; set; }
-        public DbSet<UserBusiness> UserBusinesses { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -9,6 +9,8 @@ namespace DateNiteBackEndCapstone.Models.BusinessViewModals
     public class BusinessListViewModel
     {
         [JsonPropertyName("businesses")]
-        public IEnumerable<Business> Businesses { get; set; }
+        public List<Business> Businesses { get; set; }
+        public Date Date { get; set; }
+        public int DateId { get; set; }
     }
 }
