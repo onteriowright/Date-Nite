@@ -92,27 +92,17 @@ namespace DateNiteBackEndCapstone.Controllers
         // GET: Dates/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var date = await _context.Dates.FirstOrDefaultAsync(d => d.Id == id);
 
-            return View(date);
+            return View();
         }
 
         // POST: Dates/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, BusinessListViewModel viewModel)
+        public async Task<ActionResult> Edit(int id, IFormCollection collection)
         {
             try
             {
-                var user = await GetUserAsync();
-
-                var date = await _context.Dates.FirstOrDefaultAsync(d => d.Id == id);
-
-                date.DateTime = viewModel.Date.DateTime;
-
-                _context.Dates.Update(date);
-                await _context.SaveChangesAsync();
-
 
                 return RedirectToAction(nameof(Index));
             }

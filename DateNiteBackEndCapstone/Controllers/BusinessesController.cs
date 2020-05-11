@@ -72,9 +72,9 @@ namespace DateNiteBackEndCapstone.Controllers
                 var data = await JsonSerializer.DeserializeAsync<BusinessListViewModel>(responseStream);
 
                 return View(data);
-                throw new Exception("Unable to retrieve data from Yelp");
             }
-            return View();
+
+            throw new Exception("Unable to retrieve data from Yelp");
         }
 
         // GET: Events 
@@ -123,9 +123,9 @@ namespace DateNiteBackEndCapstone.Controllers
                 var data = await JsonSerializer.DeserializeAsync<BusinessListViewModel>(responseStream);
 
                 return View(data);
-                throw new Exception("Unable to retrieve data from Yelp");
             }
-            return View();
+
+            throw new Exception("Unable to retrieve data from Yelp");
         }
 
 
@@ -166,7 +166,7 @@ namespace DateNiteBackEndCapstone.Controllers
         //POST: Businesses/AddToDate
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddToDate(string id, BusinessDetailsViewModel businessDetailViewModel)
+        public async Task<ActionResult> AddToDate(BusinessDetailsViewModel businessDetailViewModel)
         {
             var user = await GetUserAsync();
             var client = new HttpClient();
@@ -207,7 +207,7 @@ namespace DateNiteBackEndCapstone.Controllers
                 throw new Exception("Unable to retrieve data from Yelp");
             }
 
-            return RedirectToAction("Index", "Home");
+            throw new Exception("Unable to retrieve data from Yelp");
         }
 
         // GET: Businesses/Edit/5
