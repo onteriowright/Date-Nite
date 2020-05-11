@@ -76,6 +76,19 @@ namespace DateNiteBackEndCapstone.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "States",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_States", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -240,12 +253,68 @@ namespace DateNiteBackEndCapstone.Migrations
             migrationBuilder.InsertData(
                 table: "LocationTypes",
                 columns: new[] { "LocationTypeId", "Type" },
-                values: new object[] { 1, "Food" });
+                values: new object[,]
+                {
+                    { 1, "Food" },
+                    { 2, "Fun" }
+                });
 
             migrationBuilder.InsertData(
-                table: "LocationTypes",
-                columns: new[] { "LocationTypeId", "Type" },
-                values: new object[] { 2, "Fun" });
+                table: "States",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 27, "NE" },
+                    { 28, "NV" },
+                    { 29, "NH" },
+                    { 30, "NJ" },
+                    { 31, "NM" },
+                    { 32, "NY" },
+                    { 33, "NC" },
+                    { 34, "ND" },
+                    { 35, "OH" },
+                    { 36, "OK" },
+                    { 37, "OR" },
+                    { 38, "PA" },
+                    { 39, "RI" },
+                    { 40, "SC" },
+                    { 41, "SD" },
+                    { 42, "TN" },
+                    { 43, "TX" },
+                    { 44, "UT" },
+                    { 45, "VT" },
+                    { 46, "VA" },
+                    { 47, "WA" },
+                    { 48, "WV" },
+                    { 26, "MT" },
+                    { 25, "MO" },
+                    { 24, "MS" },
+                    { 23, "MN" },
+                    { 1, "AL" },
+                    { 2, "AK" },
+                    { 3, "AZ" },
+                    { 4, "AR" },
+                    { 5, "CA" },
+                    { 6, "CO" },
+                    { 7, "CT" },
+                    { 8, "DE" },
+                    { 9, "Fl" },
+                    { 10, "GA" },
+                    { 49, "WI" },
+                    { 11, "HI" },
+                    { 13, "IL" },
+                    { 14, "IN" },
+                    { 15, "IA" },
+                    { 16, "KS" },
+                    { 17, "KY" },
+                    { 18, "LA" },
+                    { 19, "ME" },
+                    { 20, "MD" },
+                    { 21, "MA" },
+                    { 22, "MI" },
+                    { 12, "ID" },
+                    { 50, "WY" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -327,6 +396,9 @@ namespace DateNiteBackEndCapstone.Migrations
 
             migrationBuilder.DropTable(
                 name: "LocationTypes");
+
+            migrationBuilder.DropTable(
+                name: "States");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

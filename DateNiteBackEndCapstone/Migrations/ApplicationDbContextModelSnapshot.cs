@@ -131,6 +131,273 @@ namespace DateNiteBackEndCapstone.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DateNiteBackEndCapstone.Models.State", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("States");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "AL"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "AK"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "AZ"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "AR"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "CA"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "CO"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "CT"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "DE"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Fl"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "GA"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "HI"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "ID"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "IL"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "IN"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "IA"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "KS"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "KY"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Name = "LA"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Name = "ME"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Name = "MD"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Name = "MA"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Name = "MI"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Name = "MN"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Name = "MS"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Name = "MO"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Name = "MT"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Name = "NE"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Name = "NV"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Name = "NH"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Name = "NJ"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Name = "NM"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Name = "NY"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Name = "NC"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Name = "ND"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Name = "OH"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Name = "OK"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Name = "OR"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Name = "PA"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Name = "RI"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Name = "SC"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Name = "SD"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Name = "TN"
+                        },
+                        new
+                        {
+                            Id = 43,
+                            Name = "TX"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            Name = "UT"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            Name = "VT"
+                        },
+                        new
+                        {
+                            Id = 46,
+                            Name = "VA"
+                        },
+                        new
+                        {
+                            Id = 47,
+                            Name = "WA"
+                        },
+                        new
+                        {
+                            Id = 48,
+                            Name = "WV"
+                        },
+                        new
+                        {
+                            Id = 49,
+                            Name = "WI"
+                        },
+                        new
+                        {
+                            Id = 50,
+                            Name = "WY"
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace DateNiteBackEndCapstone.Models.BusinessViewModals
         public int DateId { get; set; }
         [Display(Name = "Date")]
         public DateTime? DateTime { get; set; }
+        public List<SelectListItem> ListOfStateOptions { get; set; }
     }
 }

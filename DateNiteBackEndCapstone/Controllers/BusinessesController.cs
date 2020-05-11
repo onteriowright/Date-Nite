@@ -32,6 +32,15 @@ namespace DateNiteBackEndCapstone.Controllers
             var client = new HttpClient();
             var price = 0;
 
+            //var viewModel = new BusinessListViewModel();
+
+            //var stateOptions = await _context.States.Select(s => new SelectListItem()
+            //{
+            //    Text = s.Name,
+            //    Value = s.Id.ToString()
+            //}).ToListAsync();
+
+            //state = stateOptions.ToString();
 
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "TeC1Z2BEPysYnC8Ku-w84jo1OG6TSLfLZNol9-2Yj1gEPfpUq76adogQWhyDqbDt3a5Ld_seJQyj5HYK5oIa7WKcloeeZrdWbnwZNJPcea-aLgb4d0K_sZPPvCJUXnYx");
             client.DefaultRequestHeaders.Add("Accept", "application/json");
@@ -78,11 +87,20 @@ namespace DateNiteBackEndCapstone.Controllers
         }
 
         // GET: Events 
-        public async Task<ActionResult> EventIndex(string city, string state, int? budget)
+        public async Task<ActionResult> EventIndex(string city, BusinessListViewModel state, int? budget)
         {
             var client = new HttpClient();
             var price = 0;
 
+            var viewModel = new BusinessListViewModel();
+
+            var stateOptions = await _context.States.Select(s => new SelectListItem()
+            {
+                Text = s.Name,
+                Value = s.Id.ToString()
+            }).ToListAsync();
+
+            viewModel.ListOfStateOptions = stateOptions;
 
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "TeC1Z2BEPysYnC8Ku-w84jo1OG6TSLfLZNol9-2Yj1gEPfpUq76adogQWhyDqbDt3a5Ld_seJQyj5HYK5oIa7WKcloeeZrdWbnwZNJPcea-aLgb4d0K_sZPPvCJUXnYx");
             client.DefaultRequestHeaders.Add("Accept", "application/json");
