@@ -1,0 +1,39 @@
+﻿@model DateNiteBackEndCapstone.Models.DateViewModels.ListOfDatesViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Scheduled Date</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Day Of Date
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ListOfDates)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date.DateTime)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit Time Of Date", "Edit", "Dates", new { id = item.Date.Id }, new { @class = "btn btn-link" })
+                </td>
+                <td>
+                    @Html.ActionLink("Places To Attend", "ViewBusinessesForScheduledDates", "Businesses", new { id = item.Date.Id }, new { @class = "btn btn-link" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a class="btn btn-link" asp-action="Index">Back to List</a>
+</div>

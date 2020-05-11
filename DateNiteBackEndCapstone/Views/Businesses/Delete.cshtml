@@ -17,11 +17,8 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Img)
-        </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Img)
+            <img style="width:135px; height:135px;" src="@Html.DisplayFor(model => model.Img)" />
         </dd>
     </dl>
 

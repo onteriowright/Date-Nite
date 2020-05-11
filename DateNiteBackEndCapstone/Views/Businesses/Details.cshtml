@@ -80,6 +80,10 @@
         <input type="submit" value="Add to Date" class="btn btn-primary" />
     </form>
 </div>
+
 <div>
-    <a asp-action="Index">Back to List</a>
+    @Html.ActionLink("Continue Searching Eateries", "Index", "Businesses")
+</div>
+<div>
+    @Html.ActionLink("Continue Searching Events", "EventIndex", "Businesses")
 </div>

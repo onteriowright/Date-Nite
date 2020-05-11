@@ -6,16 +6,11 @@
 
 <h1>Finalize Date</h1>
 
-<div class="form-group">
-    <label asp-for="Date.DateTime" class="control-label"></label>
-    <input asp-for="Date.DateTime" type="date" class="form-control" />
-    <span asp-validation-for="Date.DateTime" class="text-danger"></span>
+<div>
+    @Html.ActionLink("Continue Searching Eateries", "Index", "Businesses")
 </div>
 <div>
-    @Html.ActionLink("Add Eatery", "Index", "Businesses")
-</div>
-<div>
-    @Html.ActionLink("Add Event", "EventIndex", "Businesses")
+    @Html.ActionLink("Continue Searching Events", "EventIndex", "Businesses")
 </div>
 
 <table class="table">
@@ -47,7 +42,7 @@
     </tbody>
 </table>
 
-@if (Model.Businesses.Count > 1)
+@if (Model.Businesses.Count != 0)
 {
     <form asp-action="CompleteDate">
         <div>

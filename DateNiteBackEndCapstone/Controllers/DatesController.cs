@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DateNiteBackEndCapstone.Data;
 using DateNiteBackEndCapstone.Models;
 using DateNiteBackEndCapstone.Models.BusinessViewModals;
+using DateNiteBackEndCapstone.Models.DateViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -42,8 +43,12 @@ namespace DateNiteBackEndCapstone.Controllers
         {
             var user = await GetUserAsync();
 
+            var a = DateTime.UtcNow;
+            var b = new DateTime(a.Year, a.Month, a.Day, a.Hour, a.Minute, 0, DateTimeKind.Utc);
+
             var date = await _context.Dates.FirstOrDefaultAsync(d => d.Id == DateId);
 
+            date.DateTime = b;
             date.IsScheduled = true;
 
             _context.Dates.Update(date);
@@ -65,6 +70,30 @@ namespace DateNiteBackEndCapstone.Controllers
         {
             return View();
         }
+
+        public async Task<ActionResult> ScheduledDates()
+        { 
+            var listViewModel = new ListOfDatesViewModel();
+
+            var user = await GetUserAsync();
+            var listOfDates = await _context.Dates.Where(d => d.IsScheduled == true && d.UserId == user.Id).ToListAsync();
+
+            foreach (var date in listOfDates)
+            {
+                var viewModel = new ViewDateViewModel()
+                {
+                    Date = date,
+                    Businesses = await _context.Businesses
+                        .Where(b => b.UserId == user.Id && b.DateId == date.Id).ToListAsync()
+                };
+
+                listViewModel.ListOfDates.Add(viewModel);
+
+            }
+
+            return View(listViewModel);
+        }
+
 
         // GET: Dates/Create
         public ActionResult Create()
@@ -92,19 +121,37 @@ namespace DateNiteBackEndCapstone.Controllers
         // GET: Dates/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
+            var date = await _context.Dates.FirstOrDefaultAsync(d => d.Id == id);
+            var user = await GetUserAsync();
 
-            return View();
+            var viewModel = new BusinessListViewModel()
+            {
+                DateTime = date.DateTime
+            };
+
+            if (date.UserId != user.Id)
+            {
+                return NotFound();
+            };
+
+            return View(viewModel);
         }
 
         // POST: Dates/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, BusinessListViewModel businessListViewModel)
         {
             try
             {
+                var date = await _context.Dates.FirstOrDefaultAsync(d => d.Id == id);
 
-                return RedirectToAction(nameof(Index));
+                date.DateTime = businessListViewModel.DateTime;
+
+                _context.Dates.Update(date);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("ScheduledDates", "Dates");
             }
             catch
             {

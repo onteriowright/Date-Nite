@@ -237,52 +237,6 @@ namespace DateNiteBackEndCapstone.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "DateBusiness",
-                columns: table => new
-                {
-                    DateBusinessId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DateId = table.Column<int>(nullable: false),
-                    BusinessId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DateBusiness", x => x.DateBusinessId);
-                    table.ForeignKey(
-                        name: "FK_DateBusiness_Businesses_BusinessId",
-                        column: x => x.BusinessId,
-                        principalTable: "Businesses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DateBusiness_Dates_DateId",
-                        column: x => x.DateId,
-                        principalTable: "Dates",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserBusinesses",
-                columns: table => new
-                {
-                    UserBusinessId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(nullable: true),
-                    BusinessId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserBusinesses", x => x.UserBusinessId);
-                    table.ForeignKey(
-                        name: "FK_UserBusinesses_Businesses_BusinessId",
-                        column: x => x.BusinessId,
-                        principalTable: "Businesses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.InsertData(
                 table: "LocationTypes",
                 columns: new[] { "LocationTypeId", "Type" },
@@ -343,24 +297,9 @@ namespace DateNiteBackEndCapstone.Migrations
                 column: "LocationAddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DateBusiness_BusinessId",
-                table: "DateBusiness",
-                column: "BusinessId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DateBusiness_DateId",
-                table: "DateBusiness",
-                column: "DateId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Dates_UserId",
                 table: "Dates",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserBusinesses_BusinessId",
-                table: "UserBusinesses",
-                column: "BusinessId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -381,28 +320,22 @@ namespace DateNiteBackEndCapstone.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "DateBusiness");
-
-            migrationBuilder.DropTable(
-                name: "LocationTypes");
-
-            migrationBuilder.DropTable(
-                name: "UserBusinesses");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "Businesses");
 
             migrationBuilder.DropTable(
                 name: "Dates");
 
             migrationBuilder.DropTable(
-                name: "Businesses");
+                name: "LocationTypes");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "LocationAddress");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

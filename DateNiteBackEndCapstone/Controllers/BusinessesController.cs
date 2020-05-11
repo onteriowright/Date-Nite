@@ -109,11 +109,11 @@ namespace DateNiteBackEndCapstone.Controllers
                     price = 4;
                 }
 
-                response = await client.GetAsync($"https://api.yelp.com/v3/businesses/search?term=event&open_now=true&location={city},{state}&radius=10000&price={price}&limit=50");
+                response = await client.GetAsync($"https://api.yelp.com/v3/businesses/search?term=events&open_now=true&location={city},{state}&radius=10000&price={price}&limit=50");
             }
             else
             {
-                response = await client.GetAsync($"https://api.yelp.com/v3/businesses/search?term=event&open_now=true&location=Nashville,TN&radius=10000&price=4&limit=50");
+                response = await client.GetAsync($"https://api.yelp.com/v3/businesses/search?term=events&open_now=true&location=Nashville,TN&radius=10000&price=4&limit=50");
             }
 
 
@@ -128,6 +128,20 @@ namespace DateNiteBackEndCapstone.Controllers
             throw new Exception("Unable to retrieve data from Yelp");
         }
 
+        public async Task<ActionResult> ViewBusinessesForScheduledDates(int id)
+        {
+            var viewModel = new BusinessListViewModel();
+
+            var user = await GetUserAsync();
+            var date = await _context.Dates.FirstOrDefaultAsync(d => d.IsScheduled == true && d.UserId == user.Id && d.Id == id);
+
+            var businesses = await _context.Businesses.Where(b => b.DateId == date.Id).ToListAsync();
+
+            viewModel.Date = date;
+            viewModel.Businesses = businesses;
+
+            return View(viewModel);
+        }
 
         // GET: Businesses/Details/5
         public async Task<ActionResult> Details(string id)
@@ -238,22 +252,22 @@ namespace DateNiteBackEndCapstone.Controllers
         {
             var business = await _context.Businesses.FirstOrDefaultAsync(b => b.Id == id);
 
-            _context.Businesses.Remove(business);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction("Index", "Dates");
+            return View(business);
         }
 
         // POST: Businesses/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, IFormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                var business = await _context.Businesses.FirstOrDefaultAsync(b => b.Id == id);
 
-                return RedirectToAction(nameof(Index));
+                _context.Businesses.Remove(business);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Index", "Dates");
             }
             catch
             {
