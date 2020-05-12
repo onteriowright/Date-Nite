@@ -1,0 +1,28 @@
+﻿@model DateNiteBackEndCapstone.Models.BusinessViewModels.SearchBusinessViewModel
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h1>Search For Fun</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Businesses" asp-action="EventIndex">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search City" name="city">
+            <select class="form-control" name="state" asp-items="@Model.ListOfStateOptions">
+            </select>
+            <input class="form-control mr-sm-2" type="text" placeholder="Enter Budget" name="budget">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<div>
+    @Html.ActionLink("Search Eateries", "SearchEatery", "Businesses")
+</div>

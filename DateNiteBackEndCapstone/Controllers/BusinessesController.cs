@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using DateNiteBackEndCapstone.Data;
 using DateNiteBackEndCapstone.Models;
-using DateNiteBackEndCapstone.Models.BusinessViewModals;
+using DateNiteBackEndCapstone.Models.BusinessViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -26,21 +26,41 @@ namespace DateNiteBackEndCapstone.Controllers
             _userManager = userManager;
         }
 
+        public async Task<ActionResult> SearchEatery()
+        {
+            var viewModel = new SearchBusinessViewModel();
+
+            var stateOptions = await _context.States.Select(s => new SelectListItem()
+            {
+                Text = s.Name,
+                Value = s.Id.ToString()
+            }).ToListAsync();
+
+            viewModel.ListOfStateOptions = stateOptions;
+
+            return View(viewModel);
+        }
+
+        public async Task<ActionResult> SearchFun()
+        {
+            var viewModel = new SearchBusinessViewModel();
+
+            var stateOptions = await _context.States.Select(s => new SelectListItem()
+            {
+                Text = s.Name,
+                Value = s.Id.ToString()
+            }).ToListAsync();
+
+            viewModel.ListOfStateOptions = stateOptions;
+
+            return View(viewModel);
+        }
+
         // GET: Restaurants 
         public async Task<ActionResult> Index(string city, string state, int? budget)
         {
             var client = new HttpClient();
             var price = 0;
-
-            //var viewModel = new BusinessListViewModel();
-
-            //var stateOptions = await _context.States.Select(s => new SelectListItem()
-            //{
-            //    Text = s.Name,
-            //    Value = s.Id.ToString()
-            //}).ToListAsync();
-
-            //state = stateOptions.ToString();
 
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "TeC1Z2BEPysYnC8Ku-w84jo1OG6TSLfLZNol9-2Yj1gEPfpUq76adogQWhyDqbDt3a5Ld_seJQyj5HYK5oIa7WKcloeeZrdWbnwZNJPcea-aLgb4d0K_sZPPvCJUXnYx");
             client.DefaultRequestHeaders.Add("Accept", "application/json");
@@ -91,16 +111,6 @@ namespace DateNiteBackEndCapstone.Controllers
         {
             var client = new HttpClient();
             var price = 0;
-
-            var viewModel = new BusinessListViewModel();
-
-            var stateOptions = await _context.States.Select(s => new SelectListItem()
-            {
-                Text = s.Name,
-                Value = s.Id.ToString()
-            }).ToListAsync();
-
-            viewModel.ListOfStateOptions = stateOptions;
 
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "TeC1Z2BEPysYnC8Ku-w84jo1OG6TSLfLZNol9-2Yj1gEPfpUq76adogQWhyDqbDt3a5Ld_seJQyj5HYK5oIa7WKcloeeZrdWbnwZNJPcea-aLgb4d0K_sZPPvCJUXnYx");
             client.DefaultRequestHeaders.Add("Accept", "application/json");
@@ -153,8 +163,15 @@ namespace DateNiteBackEndCapstone.Controllers
             var user = await GetUserAsync();
             var date = await _context.Dates.FirstOrDefaultAsync(d => d.IsScheduled == true && d.UserId == user.Id && d.Id == id);
 
-            var businesses = await _context.Businesses.Where(b => b.DateId == date.Id).ToListAsync();
+            var businesses = await _context.Businesses
+                .Where(b => b.DateId == date.Id).ToListAsync();
 
+            foreach (var business in businesses)
+            {
+
+                var locationType = await _context.LocationTypes.FirstOrDefaultAsync(l => l.LocationTypeId == business.LocationTypeId);
+                viewModel.LocationType = locationType.Type;
+            }
             viewModel.Date = date;
             viewModel.Businesses = businesses;
 
@@ -240,29 +257,6 @@ namespace DateNiteBackEndCapstone.Controllers
             }
 
             throw new Exception("Unable to retrieve data from Yelp");
-        }
-
-        // GET: Businesses/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Businesses/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET:Businesses/Delete/5

@@ -1,4 +1,4 @@
-﻿@model DateNiteBackEndCapstone.Models.BusinessViewModals.BusinessListViewModel
+﻿@model DateNiteBackEndCapstone.Models.BusinessViewModels.BusinessListViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -7,10 +7,10 @@
 <h1>Finalize Date</h1>
 
 <div>
-    @Html.ActionLink("Continue Searching Eateries", "Index", "Businesses")
+    @Html.ActionLink("Continue Searching Eateries", "SearchEatery", "Businesses")
 </div>
 <div>
-    @Html.ActionLink("Continue Searching Events", "EventIndex", "Businesses")
+    @Html.ActionLink("Continue Searching Events", "SearchFun", "Businesses")
 </div>
 
 <table class="table">
@@ -55,8 +55,3 @@ else
 {
     <input value="Save Date" class="btn btn-secondary disabled" />
 }
-
-
-<div>
-    <a class="btn btn-link" asp-action="Index">Back to List</a>
-</div>

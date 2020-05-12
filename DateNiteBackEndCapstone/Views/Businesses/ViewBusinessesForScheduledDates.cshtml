@@ -1,4 +1,4 @@
-﻿@model DateNiteBackEndCapstone.Models.BusinessViewModals.BusinessListViewModel
+﻿@model DateNiteBackEndCapstone.Models.BusinessViewModels.BusinessListViewModel
 
 @{
     ViewData["Title"] = "ViewScheduledDates";
@@ -21,6 +21,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.LocationType)
                 </td>
                 <td>
                     <img style="width:135px; height:135px;" src="@Html.DisplayFor(modelItem => item.Img)" />

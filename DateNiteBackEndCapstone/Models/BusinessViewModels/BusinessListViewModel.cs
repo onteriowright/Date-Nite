@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace DateNiteBackEndCapstone.Models.BusinessViewModals
+namespace DateNiteBackEndCapstone.Models.BusinessViewModels
 {
     public class BusinessListViewModel
     {
@@ -16,6 +16,6 @@ namespace DateNiteBackEndCapstone.Models.BusinessViewModals
         public int DateId { get; set; }
         [Display(Name = "Date")]
         public DateTime? DateTime { get; set; }
-        public List<SelectListItem> ListOfStateOptions { get; set; }
+        public string LocationType { get; set; }
     }
 }

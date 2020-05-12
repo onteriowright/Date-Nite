@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DateNiteBackEndCapstone.Data;
 using DateNiteBackEndCapstone.Models;
-using DateNiteBackEndCapstone.Models.BusinessViewModals;
+using DateNiteBackEndCapstone.Models.BusinessViewModels;
 using DateNiteBackEndCapstone.Models.DateViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -43,12 +43,12 @@ namespace DateNiteBackEndCapstone.Controllers
         {
             var user = await GetUserAsync();
 
-            var a = DateTime.UtcNow;
-            var b = new DateTime(a.Year, a.Month, a.Day, a.Hour, a.Minute, 0, DateTimeKind.Utc);
-
             var date = await _context.Dates.FirstOrDefaultAsync(d => d.Id == DateId);
 
-            date.DateTime = b;
+            var dateTime = DateTime.Now.ToString("g");
+            var parsedDated = DateTime.Parse(dateTime);
+
+            date.DateTime = parsedDated;
             date.IsScheduled = true;
 
             _context.Dates.Update(date);
@@ -62,17 +62,11 @@ namespace DateNiteBackEndCapstone.Controllers
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index", "Home");
-        }
-
-        // GET: Dates/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
+            return RedirectToAction("ScheduledDates", "Dates");
         }
 
         public async Task<ActionResult> ScheduledDates()
-        { 
+        {
             var listViewModel = new ListOfDatesViewModel();
 
             var user = await GetUserAsync();
@@ -92,30 +86,6 @@ namespace DateNiteBackEndCapstone.Controllers
             }
 
             return View(listViewModel);
-        }
-
-
-        // GET: Dates/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Dates/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: Dates/Edit/5
@@ -158,30 +128,6 @@ namespace DateNiteBackEndCapstone.Controllers
                 return View();
             }
         }
-
-        // GET: Dates/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Dates/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         private async Task<ApplicationUser> GetUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
     }
 }

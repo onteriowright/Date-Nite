@@ -1,4 +1,4 @@
-﻿@model DateNiteBackEndCapstone.Models.BusinessViewModals.BusinessDetailsViewModel
+﻿@model DateNiteBackEndCapstone.Models.BusinessViewModels.BusinessDetailsViewModel
 @using Microsoft.AspNetCore.Identity
 @inject UserManager<ApplicationUser> UserManager
 
@@ -82,8 +82,8 @@
 </div>
 
 <div>
-    @Html.ActionLink("Continue Searching Eateries", "Index", "Businesses")
+    @Html.ActionLink("Continue Searching Eateries", "SearchEatery", "Businesses")
 </div>
 <div>
-    @Html.ActionLink("Continue Searching Events", "EventIndex", "Businesses")
+    @Html.ActionLink("Continue Searching Events", "SearchFun", "Businesses")
 </div>

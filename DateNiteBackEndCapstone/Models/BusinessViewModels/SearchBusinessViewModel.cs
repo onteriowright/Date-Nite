@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace DateNiteBackEndCapstone.Models.BusinessViewModels
 {
-    public class BusinessDetailsViewModel
+    public class SearchBusinessViewModel
     {
-        public Business Business { get; set; }
-        public List<SelectListItem> LocationTypesOptions { get; set; }
+        public List<SelectListItem> ListOfStateOptions { get; set; }
+        public string Value { get; set; }
     }
 }
