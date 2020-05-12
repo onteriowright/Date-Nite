@@ -39,16 +39,13 @@ namespace DateNiteBackEndCapstone.Controllers
             return View(viewModel);
         }
 
-        public async Task<ActionResult> CompleteDate(int DateId)
+        public async Task<ActionResult> CompleteDate(int DateId, BusinessListViewModel viewModel)
         {
             var user = await GetUserAsync();
 
             var date = await _context.Dates.FirstOrDefaultAsync(d => d.Id == DateId);
 
-            var dateTime = DateTime.Now.ToString("g");
-            var parsedDated = DateTime.Parse(dateTime);
-
-            date.DateTime = parsedDated;
+            date.DateTime = viewModel.DateTime;
             date.IsScheduled = true;
 
             _context.Dates.Update(date);
@@ -70,7 +67,9 @@ namespace DateNiteBackEndCapstone.Controllers
             var listViewModel = new ListOfDatesViewModel();
 
             var user = await GetUserAsync();
-            var listOfDates = await _context.Dates.Where(d => d.IsScheduled == true && d.UserId == user.Id).ToListAsync();
+            var listOfDates = await _context.Dates
+                .OrderBy(d => d.DateTime)
+                .Where(d => d.IsScheduled == true && d.UserId == user.Id && d.DateTime >= DateTime.Now).ToListAsync();
 
             foreach (var date in listOfDates)
             {

@@ -62,6 +62,160 @@ namespace DateNiteBackEndCapstone.Controllers
             var client = new HttpClient();
             var price = 0;
 
+            switch (state)
+            {
+                case "1":
+                    state = "AL";
+                    break;
+                case "2":
+                    state = "AK";
+                    break;
+                case "3":
+                    state = "AZ";
+                    break;
+                case "4":
+                    state = "AR";
+                    break;
+                case "5":
+                    state = "CA";
+                    break;
+                case "6":
+                    state = "CO";
+                    break;
+                case "7":
+                    state = "CT";
+                    break;
+                case "8":
+                    state = "DE";
+                    break;
+                case "9":
+                    state = "FI";
+                    break;
+                case "10":
+                    state = "GA";
+                    break;
+                case "11":
+                    state = "HI";
+                    break;
+                case "12":
+                    state = "ID";
+                    break;
+                case "13":
+                    state = "IL";
+                    break;
+                case "14":
+                    state = "IN";
+                    break;
+                case "15":
+                    state = "IA";
+                    break;
+                case "16":
+                    state = "KS";
+                    break;
+                case "17":
+                    state = "KY";
+                    break;
+                case "18":
+                    state = "LA";
+                    break;
+                case "19":
+                    state = "ME";
+                    break;
+                case "20":
+                    state = "MD";
+                    break;
+                case "21":
+                    state = "MA";
+                    break;
+                case "22":
+                    state = "MI";
+                    break;
+                case "23":
+                    state = "MN";
+                    break;
+                case "24":
+                    state = "MS";
+                    break;
+                case "25":
+                    state = "MO";
+                    break;
+                case "26":
+                    state = "MT";
+                    break;
+                case "27":
+                    state = "NE";
+                    break;
+                case "28":
+                    state = "NV";
+                    break;
+                case "29":
+                    state = "NH";
+                    break;
+                case "30":
+                    state = "NJ";
+                    break;
+                case "31":
+                    state = "NM";
+                    break;
+                case "32":
+                    state = "NY";
+                    break;
+                case "33":
+                    state = "NC";
+                    break;
+                case "34":
+                    state = "ND";
+                    break;
+                case "35":
+                    state = "OH";
+                    break;
+                case "36":
+                    state = "OK";
+                    break;
+                case "37":
+                    state = "OR";
+                    break;
+                case "38":
+                    state = "PA";
+                    break;
+                case "39":
+                    state = "RI";
+                    break;
+                case "40":
+                    state = "SC";
+                    break;
+                case "41":
+                    state = "SD";
+                    break;
+                case "42":
+                    state = "TN";
+                    break;
+                case "43":
+                    state = "TX";
+                    break;
+                case "44":
+                    state = "UT";
+                    break;
+                case "45":
+                    state = "VT";
+                    break;
+                case "46":
+                    state = "VA";
+                    break;
+                case "47":
+                    state = "WA";
+                    break;
+                case "48":
+                    state = "WV";
+                    break;
+                case "49":
+                    state = "WI";
+                    break;
+                case "50":
+                    state = "WY";
+                    break;
+            }
+
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "TeC1Z2BEPysYnC8Ku-w84jo1OG6TSLfLZNol9-2Yj1gEPfpUq76adogQWhyDqbDt3a5Ld_seJQyj5HYK5oIa7WKcloeeZrdWbnwZNJPcea-aLgb4d0K_sZPPvCJUXnYx");
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Add("User-Agent", "DateNiteYelpClient");
@@ -74,43 +228,193 @@ namespace DateNiteBackEndCapstone.Controllers
                 {
                     price = 1;
                 }
-                else if (budget >= 20 && budget <= 50)
+                else if (budget >= 20 && budget < 50)
                 {
                     price = 2;
                 }
-                else if (budget >= 50 && budget <= 75)
+                else if (budget >= 50 && budget < 75)
                 {
                     price = 3;
                 }
-                else if (budget >= 75 && budget <= 150)
+                else if (budget >= 75)
                 {
                     price = 4;
                 }
 
-                response = await client.GetAsync($"https://api.yelp.com/v3/businesses/search?term=restaurant&open_now=true&location={city},{state}&radius=10000&price={price}&limit=50");
-            }
-            else
-            {
-                response = await client.GetAsync($"https://api.yelp.com/v3/businesses/search?term=restaurant&open_now=true&location=Nashville,TN&radius=10000&price=4&limit=50");
-            }
+                response = await client.GetAsync($"https://api.yelp.com/v3/businesses/search?term=restaurant&open_now=true&location={city},{state}&radius=10000&price={price}");
 
 
-            if (response.IsSuccessStatusCode)
-            {
-                using var responseStream = await response.Content.ReadAsStreamAsync();
-                var data = await JsonSerializer.DeserializeAsync<BusinessListViewModel>(responseStream);
+                if (response.IsSuccessStatusCode)
+                {
+                    using var responseStream = await response.Content.ReadAsStreamAsync();
+                    var data = await JsonSerializer.DeserializeAsync<BusinessListViewModel>(responseStream);
 
-                return View(data);
+                    return View(data);
+                }
             }
 
             throw new Exception("Unable to retrieve data from Yelp");
         }
 
         // GET: Events 
-        public async Task<ActionResult> EventIndex(string city, BusinessListViewModel state, int? budget)
+        public async Task<ActionResult> EventIndex(string city, string state, int? budget)
         {
             var client = new HttpClient();
             var price = 0;
+
+            switch (state)
+            {
+                case "1":
+                    state = "AL";
+                    break;
+                case "2":
+                    state = "AK";
+                    break;
+                case "3":
+                    state = "AZ";
+                    break;
+                case "4":
+                    state = "AR";
+                    break;
+                case "5":
+                    state = "CA";
+                    break;
+                case "6":
+                    state = "CO";
+                    break;
+                case "7":
+                    state = "CT";
+                    break;
+                case "8":
+                    state = "DE";
+                    break;
+                case "9":
+                    state = "FI";
+                    break;
+                case "10":
+                    state = "GA";
+                    break;
+                case "11":
+                    state = "HI";
+                    break;
+                case "12":
+                    state = "ID";
+                    break;
+                case "13":
+                    state = "IL";
+                    break;
+                case "14":
+                    state = "IN";
+                    break;
+                case "15":
+                    state = "IA";
+                    break;
+                case "16":
+                    state = "KS";
+                    break;
+                case "17":
+                    state = "KY";
+                    break;
+                case "18":
+                    state = "LA";
+                    break;
+                case "19":
+                    state = "ME";
+                    break;
+                case "20":
+                    state = "MD";
+                    break;
+                case "21":
+                    state = "MA";
+                    break;
+                case "22":
+                    state = "MI";
+                    break;
+                case "23":
+                    state = "MN";
+                    break;
+                case "24":
+                    state = "MS";
+                    break;
+                case "25":
+                    state = "MO";
+                    break;
+                case "26":
+                    state = "MT";
+                    break;
+                case "27":
+                    state = "NE";
+                    break;
+                case "28":
+                    state = "NV";
+                    break;
+                case "29":
+                    state = "NH";
+                    break;
+                case "30":
+                    state = "NJ";
+                    break;
+                case "31":
+                    state = "NM";
+                    break;
+                case "32":
+                    state = "NY";
+                    break;
+                case "33":
+                    state = "NC";
+                    break;
+                case "34":
+                    state = "ND";
+                    break;
+                case "35":
+                    state = "OH";
+                    break;
+                case "36":
+                    state = "OK";
+                    break;
+                case "37":
+                    state = "OR";
+                    break;
+                case "38":
+                    state = "PA";
+                    break;
+                case "39":
+                    state = "RI";
+                    break;
+                case "40":
+                    state = "SC";
+                    break;
+                case "41":
+                    state = "SD";
+                    break;
+                case "42":
+                    state = "TN";
+                    break;
+                case "43":
+                    state = "TX";
+                    break;
+                case "44":
+                    state = "UT";
+                    break;
+                case "45":
+                    state = "VT";
+                    break;
+                case "46":
+                    state = "VA";
+                    break;
+                case "47":
+                    state = "WA";
+                    break;
+                case "48":
+                    state = "WV";
+                    break;
+                case "49":
+                    state = "WI";
+                    break;
+                case "50":
+                    state = "WY";
+                    break;
+            }
 
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "TeC1Z2BEPysYnC8Ku-w84jo1OG6TSLfLZNol9-2Yj1gEPfpUq76adogQWhyDqbDt3a5Ld_seJQyj5HYK5oIa7WKcloeeZrdWbnwZNJPcea-aLgb4d0K_sZPPvCJUXnYx");
             client.DefaultRequestHeaders.Add("Accept", "application/json");
@@ -124,33 +428,28 @@ namespace DateNiteBackEndCapstone.Controllers
                 {
                     price = 1;
                 }
-                else if (budget >= 20 && budget <= 50)
+                else if (budget >= 20 && budget < 50)
                 {
                     price = 2;
                 }
-                else if (budget >= 50 && budget <= 75)
+                else if (budget >= 50 && budget < 75)
                 {
                     price = 3;
                 }
-                else if (budget >= 75 && budget <= 150)
+                else if (budget >= 75)
                 {
                     price = 4;
                 }
 
                 response = await client.GetAsync($"https://api.yelp.com/v3/businesses/search?term=events&open_now=true&location={city},{state}&radius=10000&price={price}&limit=50");
-            }
-            else
-            {
-                response = await client.GetAsync($"https://api.yelp.com/v3/businesses/search?term=events&open_now=true&location=Nashville,TN&radius=10000&price=4&limit=50");
-            }
 
+                if (response.IsSuccessStatusCode)
+                {
+                    using var responseStream = await response.Content.ReadAsStreamAsync();
+                    var data = await JsonSerializer.DeserializeAsync<BusinessListViewModel>(responseStream);
 
-            if (response.IsSuccessStatusCode)
-            {
-                using var responseStream = await response.Content.ReadAsStreamAsync();
-                var data = await JsonSerializer.DeserializeAsync<BusinessListViewModel>(responseStream);
-
-                return View(data);
+                    return View(data);
+                }
             }
 
             throw new Exception("Unable to retrieve data from Yelp");
@@ -168,7 +467,6 @@ namespace DateNiteBackEndCapstone.Controllers
 
             foreach (var business in businesses)
             {
-
                 var locationType = await _context.LocationTypes.FirstOrDefaultAsync(l => l.LocationTypeId == business.LocationTypeId);
                 viewModel.LocationType = locationType.Type;
             }

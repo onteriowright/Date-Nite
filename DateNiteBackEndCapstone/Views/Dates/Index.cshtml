@@ -28,7 +28,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.ActionLink(item.Name, "Details", "Businesses", new { id = item.BusinessId })
                 </td>
                 <td>
                     <img style="width:135px; height:135px;" src="@Html.DisplayFor(modelItem => item.Img)" />
@@ -47,6 +47,7 @@
     <form asp-action="CompleteDate">
         <div>
             <input name="DateId" type="hidden" value="@Model.Date.Id" />
+          <input asp-for="DateTime" style="max-width:22%; margin-bottom:30px;" type="datetime-local" class="form-control" required/>
             <input type="submit" value="Save Date" class="btn btn-primary" />
         </div>
     </form>

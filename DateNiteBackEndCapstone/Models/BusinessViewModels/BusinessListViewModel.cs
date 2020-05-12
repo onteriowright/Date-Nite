@@ -17,5 +17,6 @@ namespace DateNiteBackEndCapstone.Models.BusinessViewModels
         [Display(Name = "Date")]
         public DateTime? DateTime { get; set; }
         public string LocationType { get; set; }
+        public Business Business { get; set; }
     }
 }
