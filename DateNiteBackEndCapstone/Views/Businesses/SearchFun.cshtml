@@ -4,17 +4,16 @@
     ViewData["Title"] = "Search";
 }
 
-<h1>Search For Fun</h1>
+<p class="search-title">Search For Fun</p>
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="search-form">
+    <div>
         <form asp-controller="Businesses" asp-action="EventIndex">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search City" name="city" required>
-            <select class="form-control" name="state" asp-items="@Model.ListOfStateOptions" required>
+            <input class="form-control mr-sm-2 search-form-space" type="text" placeholder="Search City" name="city" required>
+            <select class="form-control search-form-space" name="state" asp-items="@Model.ListOfStateOptions" required>
             </select>
-            <input class="form-control mr-sm-2" type="text" placeholder="Enter Budget" name="budget" required>
-            <input type="submit" value="Search" class="btn btn-primary" />
+            <input class="form-control mr-sm-2 search-form-space" type="text" placeholder="Enter Budget" name="budget" required>
+            <input type="submit" value="Search" class="btn btn-primary search-form-space" />
         </form>
     </div>
 </div>
@@ -22,7 +21,3 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
-<div>
-    @Html.ActionLink("Search Eateries", "SearchEatery", "Businesses")
-</div>

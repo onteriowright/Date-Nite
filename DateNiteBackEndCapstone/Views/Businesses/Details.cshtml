@@ -80,14 +80,6 @@
         <input asp-for="Business.Img" type="hidden" value="@Model.Business.Img" class="form-control" />
         <input asp-for="Business.UserId" type="hidden" value="@Model.Business.UserId" class="form-control" />
         <input type="submit" value="Add to Date" class="btn btn-primary" />
-
-        @*@if (Model.Business.DateId != Model.Date.Id)
-        {
-        }
-        else
-        {
-            <input value="Add to Date" class="btn btn-secondary disabled" />
-        }*@
     </form>
 </div>
 
@@ -98,7 +90,7 @@
     @Html.ActionLink("Back To Fun", "SearchFun", "Businesses")
 </div>
 <div>
-    @Html.ActionLink("Back", "EventIndex", "Businesses")
+    @Html.ActionLink("Back", "Index", "Businesses")
 </div>
 <div>
     @Html.ActionLink("Pending Dates", "Index", "Dates")
