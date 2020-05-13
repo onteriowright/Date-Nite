@@ -463,13 +463,9 @@ namespace DateNiteBackEndCapstone.Controllers
             var date = await _context.Dates.FirstOrDefaultAsync(d => d.IsScheduled == true && d.UserId == user.Id && d.Id == id);
 
             var businesses = await _context.Businesses
+                .Include(b => b.LocationType)
                 .Where(b => b.DateId == date.Id).ToListAsync();
 
-            foreach (var business in businesses)
-            {
-                var locationType = await _context.LocationTypes.FirstOrDefaultAsync(l => l.LocationTypeId == business.LocationTypeId);
-                viewModel.LocationType = locationType.Type;
-            }
             viewModel.Date = date;
             viewModel.Businesses = businesses;
 

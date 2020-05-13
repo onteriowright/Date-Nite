@@ -10,6 +10,7 @@ namespace DateNiteBackEndCapstone.Models.BusinessViewModels
     public class BusinessDetailsViewModel
     {
         public Business Business { get; set; }
+        public Date Date { get; set; }
         public List<SelectListItem> LocationTypesOptions { get; set; }
     }
 }

@@ -10,7 +10,7 @@
     @Html.ActionLink("Continue Searching Eateries", "SearchEatery", "Businesses")
 </div>
 <div>
-    @Html.ActionLink("Continue Searching Events", "SearchFun", "Businesses")
+    @Html.ActionLink("Continue Searching Fun", "SearchFun", "Businesses")
 </div>
 
 <table class="table">
@@ -36,6 +36,8 @@
 
                 <td>
                     @Html.ActionLink("Remove From Date", "Delete", "Businesses", new { id = item.Id }, new { @class = "btn btn-link" })
+                </td><td>
+                    @Html.ActionLink("Back To Details", "Details", "Businesses", new { id = item.BusinessId }, new { @class = "btn btn-link" })
                 </td>
             </tr>
         }

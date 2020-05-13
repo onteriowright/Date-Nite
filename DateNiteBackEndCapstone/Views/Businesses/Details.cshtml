@@ -8,7 +8,7 @@
 }
 
 <div>
-    <h5>@Html.DisplayFor(model => model.Business.Name)</h5>
+     <h5>@Html.DisplayFor(model => model.Business.Name)</h5>
     <hr />
     <form asp-action="AddToDate">
         <div class="">
@@ -69,6 +69,8 @@
                 @Html.DisplayFor(model => model.Business.Phone)
             </p>
         </div>
+
+
         <input asp-for="Business.BusinessId" type="hidden" value="@Model.Business.BusinessId" class="form-control" />
         <input asp-for="Business.Name" type="hidden" value="@Model.Business.Name" class="form-control" />
         <input asp-for="Business.LocationAddress" type="hidden" value="@Model.Business.LocationAddress" class="form-control" />
@@ -78,6 +80,14 @@
         <input asp-for="Business.Img" type="hidden" value="@Model.Business.Img" class="form-control" />
         <input asp-for="Business.UserId" type="hidden" value="@Model.Business.UserId" class="form-control" />
         <input type="submit" value="Add to Date" class="btn btn-primary" />
+
+        @*@if (Model.Business.DateId != Model.Date.Id)
+        {
+        }
+        else
+        {
+            <input value="Add to Date" class="btn btn-secondary disabled" />
+        }*@
     </form>
 </div>
 
@@ -85,5 +95,11 @@
     @Html.ActionLink("Back To Eateries", "SearchEatery", "Businesses")
 </div>
 <div>
-    @Html.ActionLink("BacK To Events", "SearchFun", "Businesses")
+    @Html.ActionLink("Back To Fun", "SearchFun", "Businesses")
+</div>
+<div>
+    @Html.ActionLink("Back", "EventIndex", "Businesses")
+</div>
+<div>
+    @Html.ActionLink("Pending Dates", "Index", "Dates")
 </div>
