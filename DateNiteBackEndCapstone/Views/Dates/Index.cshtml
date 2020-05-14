@@ -21,9 +21,9 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink("Remove From Date", "Delete", "Businesses", new { id = item.Id }, new { @class = "btn btn-outline-danger" })
+                    @Html.ActionLink("Remove From Date", "Delete", "Businesses", new { id = item.Id }, new { @class = "btn btn-sm btn-outline-danger" })
                 </td><td>
-                    @Html.ActionLink("Back To Details", "Details", "Businesses", new { id = item.BusinessId }, new { @class = "btn btn-outline-info" })
+                    @Html.ActionLink("Back To Details", "Details", "Businesses", new { id = item.BusinessId }, new { @class = "btn btn-sm btn-outline-secondary" })
                 </td>
             </tr>
         }
@@ -36,7 +36,7 @@
         <div>
             <input name="DateId" type="hidden" value="@Model.Date.Id" />
           <input asp-for="DateTime" style="max-width:25%; margin-bottom:30px; background-color: #d9d9d9;" type="datetime-local" class="form-control" required/>
-            <input type="submit" value="Save Date" class="btn btn-outline-success" />
+            <input type="submit" value="Save Date" class="btn btn-sm btn-outline-success" />
         </div>
     </form>
 }

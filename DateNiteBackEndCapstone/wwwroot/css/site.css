@@ -25,7 +25,7 @@ a {
 }
 
 .title {
-    font-size: 15px;
+    font-size: 16px;
     color: ghostwhite;
     width: 380px;
     /*height: 30px;*/
@@ -33,7 +33,7 @@ a {
 }
 
     .title:hover {
-        color: lightsteelblue;
+        color: #d9d9d9;
         text-decoration: none;
     }
 
@@ -86,6 +86,10 @@ a {
 .search-form {
     margin: auto;
     width: 300px;
+}
+
+.nav-item:hover {
+    background-color: #d9d9d9;
 }
 
 .btn-primary {
