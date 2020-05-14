@@ -6,38 +6,24 @@
 
 <h1>Finalize Date</h1>
 
-<div>
-    @Html.ActionLink("Continue Searching Eateries", "SearchEatery", "Businesses")
-</div>
-<div>
-    @Html.ActionLink("Continue Searching Fun", "SearchFun", "Businesses")
-</div>
-
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                Businesses
-            </th>
-            <th></th>
-            <th>Rated</th>
-        </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Businesses)
         {
             <tr>
                 <td>
-                    @Html.ActionLink(item.Name, "Details", "Businesses", new { id = item.BusinessId })
+                    @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    <img style="width:135px; height:135px;" src="@Html.DisplayFor(modelItem => item.Img)" />
+                    <img style="width:200px; height:200px;" src="@Html.DisplayFor(modelItem => item.Img)" />
                 </td>
 
                 <td>
-                    @Html.ActionLink("Remove From Date", "Delete", "Businesses", new { id = item.Id }, new { @class = "btn btn-link" })
+                    @Html.ActionLink("Remove From Date", "Delete", "Businesses", new { id = item.Id }, new { @class = "btn btn-outline-danger" })
                 </td><td>
-                    @Html.ActionLink("Back To Details", "Details", "Businesses", new { id = item.BusinessId }, new { @class = "btn btn-link" })
+                    @Html.ActionLink("Back To Details", "Details", "Businesses", new { id = item.BusinessId }, new { @class = "btn btn-outline-info" })
                 </td>
             </tr>
         }
@@ -49,12 +35,12 @@
     <form asp-action="CompleteDate">
         <div>
             <input name="DateId" type="hidden" value="@Model.Date.Id" />
-          <input asp-for="DateTime" style="max-width:22%; margin-bottom:30px;" type="datetime-local" class="form-control" required/>
-            <input type="submit" value="Save Date" class="btn btn-primary" />
+          <input asp-for="DateTime" style="max-width:25%; margin-bottom:30px; background-color: #d9d9d9;" type="datetime-local" class="form-control" required/>
+            <input type="submit" value="Save Date" class="btn btn-outline-success" />
         </div>
     </form>
 }
 else
 {
-    <input value="Save Date" class="btn btn-secondary disabled" />
+    <input value="Save Date" class="btn btn-outline-dark disabled" />
 }

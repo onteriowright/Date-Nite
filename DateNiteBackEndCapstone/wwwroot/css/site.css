@@ -9,7 +9,7 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-    color: #0366d6;
+    color: #2B2D42;
 }
 
 .business-list {
@@ -19,24 +19,42 @@ a {
 }
 
 .business-cards {
-    margin: 25px;
-    flex-basis: 22%;
+    margin: 10px;
     text-align: center;
-    background-color: lightgrey;
+    background-color: #d9d9d9;
 }
 
 .title {
-    font-size: 18px;
+    font-size: 15px;
     color: ghostwhite;
-    width: 290px;
-    height: 50px;
-    background-color: grey;
+    width: 380px;
+    /*height: 30px;*/
+    background-color: #6b6565;
 }
 
     .title:hover {
         color: lightsteelblue;
         text-decoration: none;
     }
+
+.eatery-container {
+    display: flex;
+    justify-content: center;
+}
+
+.eatery-aside {
+    display: flex;
+    justify-content: space-between;
+}
+
+.aside-links {
+}
+
+.aside-text {
+    width: 140px;
+}
+
+
 
 .header-links {
     display: flex;
@@ -121,6 +139,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
+    background-color: #F7F7F9;
 }
 
 .footer {

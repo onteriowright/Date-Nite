@@ -1,71 +1,73 @@
 ﻿@model DateNiteBackEndCapstone.Models.BusinessViewModels.BusinessListViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Eatery";
 }
 
 <h1>Choose Eatery</h1>
 
-<div class="header-links">
-    <p class="links">
-        @Html.ActionLink("Back To Eateries", "SearchEatery", "Businesses")
-    </p>
-    <p class="links">
-        @Html.ActionLink("Search Fun", "SearchFun", "Businesses")
-    </p>
-</div>
-
-<div class="business-list">
-    @foreach (var item in Model.Businesses)
-    {
-        <div class="business-cards">
-
-            <div class="title">
-                <p class="inner-text-title">
-                    @Html.ActionLink(item.Name, "Details", "Businesses", new { id = item.BusinessId }, new { @class = "title" })
-                </p>
-            </div>
-            <p>
-                <img style="width:185px; height:185px;" src="@Html.DisplayFor(modelItem => item.Img)" />
+<section class="eatery-container">
+    <aside class="eatery-aside">
+            <p class="aside-text">
+                @Html.ActionLink("Back To Eateries", "SearchEatery", "Businesses")
             </p>
+            <p class="aside-text">
+                @Html.ActionLink("Search Fun", "SearchFun", "Businesses")
+            </p>
+    </aside>
 
-            @if (item.Rating.ToString() == "1.0" || item.Rating.ToString() == "1.1" || item.Rating.ToString() == "1.2" || item.Rating.ToString() == "1.3" || item.Rating.ToString() == "1.4" || item.Rating.ToString() == "1.5" || item.Rating.ToString() == "1.6" || item.Rating.ToString() == "1.7" || item.Rating.ToString() == "1.8" || item.Rating.ToString() == "1.9")
-            {
-                <p>
-                    ⭐
-                </p>
-            }
-            else if (item.Rating.ToString() == "2.0" || item.Rating.ToString() == "2.1" || item.Rating.ToString() == "2.2" || item.Rating.ToString() == "2.3" || item.Rating.ToString() == "2.4" || item.Rating.ToString() == "2.5" || item.Rating.ToString() == "2.6" || item.Rating.ToString() == "2.7" || item.Rating.ToString() == "2.8" || item.Rating.ToString() == "2.9")
-            {
-                <p>
-                    ⭐⭐
-                </p>
-            }
-            else if (item.Rating.ToString() == "3.0" || item.Rating.ToString() == "3.1" || item.Rating.ToString() == "3.2" || item.Rating.ToString() == "3.3" || item.Rating.ToString() == "3.4" || item.Rating.ToString() == "3.5" || item.Rating.ToString() == "3.6" || item.Rating.ToString() == "3.7" || item.Rating.ToString() == "3.8" || item.Rating.ToString() == "3.9")
-            {
-                <p>
-                    ⭐⭐⭐
-                </p>
-            }
-            else if (item.Rating.ToString() == "4.0" || item.Rating.ToString() == "4.1" || item.Rating.ToString() == "4.2" || item.Rating.ToString() == "4.3" || item.Rating.ToString() == "4.4" || item.Rating.ToString() == "4.5" || item.Rating.ToString() == "4.6" || item.Rating.ToString() == "4.7" || item.Rating.ToString() == "4.8" || item.Rating.ToString() == "4.9")
-            {
-                <p>
-                    ⭐⭐⭐⭐
-                </p>
-            }
-            else if (item.Rating.ToString() == "5.0" || item.Rating.ToString() == "5.1" || item.Rating.ToString() == "5.2" || item.Rating.ToString() == "5.3" || item.Rating.ToString() == "5.4" || item.Rating.ToString() == "5.5" || item.Rating.ToString() == "5.6" || item.Rating.ToString() == "5.7" || item.Rating.ToString() == "5.8" || item.Rating.ToString() == "5.9")
-            {
-                <p>
-                    ⭐⭐⭐⭐⭐
-                </p>
-            }
-            else
-            {
-                <p>
-                    This Establishment Does Not Have A Rating A This Time!
-                </p>
-            }
+    <div class="business-list">
+        @foreach (var item in Model.Businesses)
+        {
+            <div class="business-cards">
 
-        </div>
-    }
-</div>
+                <div class="title">
+                    <p class="inner-text-title">
+                        @Html.ActionLink(item.Name, "Details", "Businesses", new { id = item.BusinessId }, new { @class = "title" })
+                    </p>
+                </div>
+                <p>
+                    <img style="width:300px; height:200px;" src="@Html.DisplayFor(modelItem => item.Img)" />
+                </p>
+
+                @if (item.Rating.ToString() == "1.0" || item.Rating.ToString() == "1.1" || item.Rating.ToString() == "1.2" || item.Rating.ToString() == "1.3" || item.Rating.ToString() == "1.4" || item.Rating.ToString() == "1.5" || item.Rating.ToString() == "1.6" || item.Rating.ToString() == "1.7" || item.Rating.ToString() == "1.8" || item.Rating.ToString() == "1.9")
+                {
+                    <p>
+                        ⭐
+                    </p>
+                }
+                else if (item.Rating.ToString() == "2.0" || item.Rating.ToString() == "2.1" || item.Rating.ToString() == "2.2" || item.Rating.ToString() == "2.3" || item.Rating.ToString() == "2.4" || item.Rating.ToString() == "2.5" || item.Rating.ToString() == "2.6" || item.Rating.ToString() == "2.7" || item.Rating.ToString() == "2.8" || item.Rating.ToString() == "2.9")
+                {
+                    <p>
+                        ⭐⭐
+                    </p>
+                }
+                else if (item.Rating.ToString() == "3.0" || item.Rating.ToString() == "3.1" || item.Rating.ToString() == "3.2" || item.Rating.ToString() == "3.3" || item.Rating.ToString() == "3.4" || item.Rating.ToString() == "3.5" || item.Rating.ToString() == "3.6" || item.Rating.ToString() == "3.7" || item.Rating.ToString() == "3.8" || item.Rating.ToString() == "3.9")
+                {
+                    <p>
+                        ⭐⭐⭐
+                    </p>
+                }
+                else if (item.Rating.ToString() == "4.0" || item.Rating.ToString() == "4.1" || item.Rating.ToString() == "4.2" || item.Rating.ToString() == "4.3" || item.Rating.ToString() == "4.4" || item.Rating.ToString() == "4.5" || item.Rating.ToString() == "4.6" || item.Rating.ToString() == "4.7" || item.Rating.ToString() == "4.8" || item.Rating.ToString() == "4.9")
+                {
+                    <p>
+                        ⭐⭐⭐⭐
+                    </p>
+                }
+                else if (item.Rating.ToString() == "5.0" || item.Rating.ToString() == "5.1" || item.Rating.ToString() == "5.2" || item.Rating.ToString() == "5.3" || item.Rating.ToString() == "5.4" || item.Rating.ToString() == "5.5" || item.Rating.ToString() == "5.6" || item.Rating.ToString() == "5.7" || item.Rating.ToString() == "5.8" || item.Rating.ToString() == "5.9")
+                {
+                    <p>
+                        ⭐⭐⭐⭐⭐
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        This Establishment Does Not Have A Rating A This Time!
+                    </p>
+                }
+
+            </div>
+        }
+    </div>
+</section>
