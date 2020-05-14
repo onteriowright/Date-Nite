@@ -79,6 +79,9 @@
         <input asp-for="Business.Rating" type="hidden" value="@Model.Business.Rating" class="form-control" />
         <input asp-for="Business.Img" type="hidden" value="@Model.Business.Img" class="form-control" />
         <input asp-for="Business.UserId" type="hidden" value="@Model.Business.UserId" class="form-control" />
-        <input type="submit" value="Add to Date" class="btn btn-primary" />
+        <input type="submit" value="Add to Date" class="btn btn-sm btn-primary" />
     </form>
+</div>
+<div>
+    @Html.ActionLink("Back", "Index", "Businesses", new { }, new { @class = "btn btn-sm btn-outline-secondary" })
 </div>

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace DateNiteBackEndCapstone.Controllers
 {
@@ -19,11 +20,13 @@ namespace DateNiteBackEndCapstone.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        public readonly IConfiguration _config;
 
-        public BusinessesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public BusinessesController(IConfiguration config, ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
+            _config = config;
         }
 
         public async Task<ActionResult> SearchEatery()
@@ -216,7 +219,13 @@ namespace DateNiteBackEndCapstone.Controllers
                     break;
             }
 
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "TeC1Z2BEPysYnC8Ku-w84jo1OG6TSLfLZNol9-2Yj1gEPfpUq76adogQWhyDqbDt3a5Ld_seJQyj5HYK5oIa7WKcloeeZrdWbnwZNJPcea-aLgb4d0K_sZPPvCJUXnYx");
+            var yelpAccount = new YelpAccount();
+
+            _config.GetSection("YelpAccount").Bind(yelpAccount);
+
+            var authToken = yelpAccount.KEY;
+
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + $"{authToken}");
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Add("User-Agent", "DateNiteYelpClient");
 
@@ -416,7 +425,13 @@ namespace DateNiteBackEndCapstone.Controllers
                     break;
             }
 
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "TeC1Z2BEPysYnC8Ku-w84jo1OG6TSLfLZNol9-2Yj1gEPfpUq76adogQWhyDqbDt3a5Ld_seJQyj5HYK5oIa7WKcloeeZrdWbnwZNJPcea-aLgb4d0K_sZPPvCJUXnYx");
+            var yelpAccount = new YelpAccount();
+
+            _config.GetSection("YelpAccount").Bind(yelpAccount);
+
+            var authToken = yelpAccount.KEY;
+
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + $"{authToken}");
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Add("User-Agent", "DateNiteYelpClient");
 
@@ -479,7 +494,13 @@ namespace DateNiteBackEndCapstone.Controllers
 
             var client = new HttpClient();
 
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "TeC1Z2BEPysYnC8Ku-w84jo1OG6TSLfLZNol9-2Yj1gEPfpUq76adogQWhyDqbDt3a5Ld_seJQyj5HYK5oIa7WKcloeeZrdWbnwZNJPcea-aLgb4d0K_sZPPvCJUXnYx");
+            var yelpAccount = new YelpAccount();
+
+            _config.GetSection("YelpAccount").Bind(yelpAccount);
+
+            var authToken = yelpAccount.KEY;
+
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + $"{authToken}");
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Add("User-Agent", "DateNiteYelpClient");
 
@@ -514,7 +535,13 @@ namespace DateNiteBackEndCapstone.Controllers
             var user = await GetUserAsync();
             var client = new HttpClient();
 
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "TeC1Z2BEPysYnC8Ku-w84jo1OG6TSLfLZNol9-2Yj1gEPfpUq76adogQWhyDqbDt3a5Ld_seJQyj5HYK5oIa7WKcloeeZrdWbnwZNJPcea-aLgb4d0K_sZPPvCJUXnYx");
+            var yelpAccount = new YelpAccount();
+
+            _config.GetSection("YelpAccount").Bind(yelpAccount);
+
+            var authToken = yelpAccount.KEY;
+
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + $"{authToken}");
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Add("User-Agent", "DateNiteYelpClient");
 
@@ -546,8 +573,6 @@ namespace DateNiteBackEndCapstone.Controllers
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction("Index", "Dates");
-
-                throw new Exception("Unable to retrieve data from Yelp");
             }
 
             throw new Exception("Unable to retrieve data from Yelp");

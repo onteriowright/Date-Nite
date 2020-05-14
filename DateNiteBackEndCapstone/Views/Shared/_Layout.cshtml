@@ -51,12 +51,15 @@
             <p class="links">
                 &copy; 2020 - Date Nite - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </p>
-            <p class="links">
-                @Html.ActionLink("Search Eateries", "SearchEatery", "Businesses")
-            </p>
-            <p class="links">
-                @Html.ActionLink("Search Fun", "SearchFun", "Businesses")
-            </p>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <p class="links">
+                    @Html.ActionLink("Search Eateries", "SearchEatery", "Businesses")
+                </p>
+                <p class="links">
+                    @Html.ActionLink("Search Fun", "SearchFun", "Businesses")
+                </p>
+            }
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
