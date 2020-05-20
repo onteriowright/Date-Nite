@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DateNiteBackEndCapstone.Data;
 using DateNiteBackEndCapstone.Models;
 using DateNiteBackEndCapstone.Models.BusinessViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace DateNiteBackEndCapstone.Controllers
 {
+    [Authorize]
     public class BusinessesController : Controller
     {
         private readonly ApplicationDbContext _context;

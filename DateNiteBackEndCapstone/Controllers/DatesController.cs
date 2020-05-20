@@ -6,6 +6,7 @@ using DateNiteBackEndCapstone.Data;
 using DateNiteBackEndCapstone.Models;
 using DateNiteBackEndCapstone.Models.BusinessViewModels;
 using DateNiteBackEndCapstone.Models.DateViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,8 +14,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DateNiteBackEndCapstone.Controllers
 {
+    [Authorize]
     public class DatesController : Controller
     {
+
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 

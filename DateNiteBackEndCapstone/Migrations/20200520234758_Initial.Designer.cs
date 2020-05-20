@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DateNiteBackEndCapstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200512171425_Initial")]
+    [Migration("20200520234758_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,7 @@ namespace DateNiteBackEndCapstone.Migrations
                     b.Property<string>("BusinessId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DateId")
+                    b.Property<int?>("DateId")
                         .HasColumnType("int");
 
                     b.Property<string>("Img")
@@ -66,6 +66,8 @@ namespace DateNiteBackEndCapstone.Migrations
                     b.HasIndex("ApplicatonUserId");
 
                     b.HasIndex("LocationAddressId");
+
+                    b.HasIndex("LocationTypeId");
 
                     b.ToTable("Businesses");
                 });
@@ -633,6 +635,12 @@ namespace DateNiteBackEndCapstone.Migrations
                     b.HasOne("DateNiteBackEndCapstone.Models.LocationAddress", "LocationAddress")
                         .WithMany()
                         .HasForeignKey("LocationAddressId");
+
+                    b.HasOne("DateNiteBackEndCapstone.Models.LocationType", "LocationType")
+                        .WithMany()
+                        .HasForeignKey("LocationTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DateNiteBackEndCapstone.Models.Date", b =>

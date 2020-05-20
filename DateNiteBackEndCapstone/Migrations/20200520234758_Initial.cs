@@ -230,7 +230,7 @@ namespace DateNiteBackEndCapstone.Migrations
                     Rating = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
                     Img = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
-                    DateId = table.Column<int>(nullable: false),
+                    DateId = table.Column<int>(nullable: true),
                     ApplicatonUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -248,6 +248,12 @@ namespace DateNiteBackEndCapstone.Migrations
                         principalTable: "LocationAddress",
                         principalColumn: "LocationAddressId",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Businesses_LocationTypes_LocationTypeId",
+                        column: x => x.LocationTypeId,
+                        principalTable: "LocationTypes",
+                        principalColumn: "LocationTypeId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -366,6 +372,11 @@ namespace DateNiteBackEndCapstone.Migrations
                 column: "LocationAddressId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Businesses_LocationTypeId",
+                table: "Businesses",
+                column: "LocationTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Dates_UserId",
                 table: "Dates",
                 column: "UserId");
@@ -395,9 +406,6 @@ namespace DateNiteBackEndCapstone.Migrations
                 name: "Dates");
 
             migrationBuilder.DropTable(
-                name: "LocationTypes");
-
-            migrationBuilder.DropTable(
                 name: "States");
 
             migrationBuilder.DropTable(
@@ -405,6 +413,9 @@ namespace DateNiteBackEndCapstone.Migrations
 
             migrationBuilder.DropTable(
                 name: "LocationAddress");
+
+            migrationBuilder.DropTable(
+                name: "LocationTypes");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
