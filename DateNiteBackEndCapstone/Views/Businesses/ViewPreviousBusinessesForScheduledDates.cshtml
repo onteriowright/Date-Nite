@@ -1,0 +1,75 @@
+﻿@model DateNiteBackEndCapstone.Models.BusinessViewModels.BusinessListViewModel
+
+@{
+    ViewData["Title"] = "ViewScheduledDates";
+}
+
+<h1>Places For This Date</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Business
+            </th>
+            <th>
+                Type
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Businesses)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LocationType.Type)
+                </td>
+                <td>
+                    <img style="width:200px; height:200px;" src="@Html.DisplayFor(modelItem => item.Img)" />
+                </td>
+
+                @if (item.Rating.ToString() == "1.0000" || item.Rating.ToString() == "1.1000" || item.Rating.ToString() == "1.2000" || item.Rating.ToString() == "1.3000" || item.Rating.ToString() == "1.4000" || item.Rating.ToString() == "1.5000" || item.Rating.ToString() == "1.6000" || item.Rating.ToString() == "1.7000" || item.Rating.ToString() == "1.8000" || item.Rating.ToString() == "1.9000")
+                {
+                    <td>
+                        ⭐
+                    </td>
+                }
+                else if (item.Rating.ToString() == "2.0000" || item.Rating.ToString() == "2.1000" || item.Rating.ToString() == "2.2000" || item.Rating.ToString() == "2.3000" || item.Rating.ToString() == "2.4000" || item.Rating.ToString() == "2.5000" || item.Rating.ToString() == "2.6000" || item.Rating.ToString() == "2.7000" || item.Rating.ToString() == "2.8000" || item.Rating.ToString() == "2.9000")
+                {
+                    <td>
+                        ⭐⭐
+                    </td>
+                }
+                else if (item.Rating.ToString() == "3.0000" || item.Rating.ToString() == "3.1000" || item.Rating.ToString() == "3.2000" || item.Rating.ToString() == "3.3000" || item.Rating.ToString() == "3.4000" || item.Rating.ToString() == "3.5000" || item.Rating.ToString() == "3.6000" || item.Rating.ToString() == "3.7000" || item.Rating.ToString() == "3.8000" || item.Rating.ToString() == "3.9000")
+                {
+                    <td>
+                        ⭐⭐⭐
+                    </td>
+                }
+                else if (item.Rating.ToString() == "4.0000" || item.Rating.ToString() == "4.1000" || item.Rating.ToString() == "4.2000" || item.Rating.ToString() == "4.3000" || item.Rating.ToString() == "4.4000" || item.Rating.ToString() == "4.5000" || item.Rating.ToString() == "4.6000" || item.Rating.ToString() == "4.7000" || item.Rating.ToString() == "4.8000" || item.Rating.ToString() == "4.9000")
+                {
+                    <td>
+                        ⭐⭐⭐⭐
+                    </td>
+                }
+                else if (item.Rating.ToString() == "5.0000" || item.Rating.ToString() == "5.1000" || item.Rating.ToString() == "5.2000" || item.Rating.ToString() == "5.3000" || item.Rating.ToString() == "5.4000" || item.Rating.ToString() == "5.5000" || item.Rating.ToString() == "5.6000" || item.Rating.ToString() == "5.7000" || item.Rating.ToString() == "5.8000" || item.Rating.ToString() == "5.9000")
+                {
+                    <td>
+                        ⭐⭐⭐⭐⭐
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        This Establishment Does Not Have A Rating A This Time!
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-sm btn-outline-secondary" asp-controller="Dates" asp-action="PreviousDates">Back</a>
