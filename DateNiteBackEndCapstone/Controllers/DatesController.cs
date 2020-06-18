@@ -90,6 +90,31 @@ namespace DateNiteBackEndCapstone.Controllers
             return View(listViewModel);
         }
 
+        public async Task<ActionResult> PreviousDates()
+        {
+            var listViewModel = new ListOfDatesViewModel();
+
+            var user = await GetUserAsync();
+            var listOfDates = await _context.Dates
+                .OrderByDescending(d => d.DateTime)
+                .Where(d => d.IsScheduled == true && d.UserId == user.Id && d.DateTime < DateTime.Now).ToListAsync();
+
+            foreach (var date in listOfDates)
+            {
+                var viewModel = new ViewDateViewModel()
+                {
+                    Date = date,
+                    Businesses = await _context.Businesses
+                        .Where(b => b.UserId == user.Id && b.DateId == date.Id).ToListAsync()
+                };
+
+                listViewModel.ListOfDates.Add(viewModel);
+
+            }
+
+            return View(listViewModel);
+        }
+
         // GET: Dates/Edit/5
         public async Task<ActionResult> Edit(int id)
         {

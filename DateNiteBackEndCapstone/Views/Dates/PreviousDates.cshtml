@@ -1,0 +1,32 @@
+﻿@model DateNiteBackEndCapstone.Models.DateViewModels.ListOfDatesViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Previous Dates</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Day Of Date
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ListOfDates)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date.DateTime)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Places Attended", "ViewPreviousBusinessesForScheduledDates", "Businesses", new { id = item.Date.Id }, new { @class = "btn btn-sm btn-outline-secondary" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

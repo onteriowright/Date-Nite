@@ -489,6 +489,23 @@ namespace DateNiteBackEndCapstone.Controllers
             return View(viewModel);
         }
 
+        public async Task<ActionResult> ViewPreviousBusinessesForScheduledDates(int id)
+        {
+            var viewModel = new BusinessListViewModel();
+
+            var user = await GetUserAsync();
+            var date = await _context.Dates.FirstOrDefaultAsync(d => d.IsScheduled == true && d.UserId == user.Id && d.Id == id);
+
+            var businesses = await _context.Businesses
+                .Include(b => b.LocationType)
+                .Where(b => b.DateId == date.Id).ToListAsync();
+
+            viewModel.Date = date;
+            viewModel.Businesses = businesses;
+
+            return View(viewModel);
+        }
+
         // GET: Businesses/Details/5
         public async Task<ActionResult> Details(string id)
         {
